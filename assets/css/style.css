@@ -1,0 +1,358 @@
+
+/* 
+==================================
+            Reset CSS 
+==================================
+ */
+
+ body{
+    font-family: 'Poppins', sans-serif !important;
+    background-color: #fff;
+    font-size: 16px  !important;
+ }
+ img{
+   width: 100%;
+   height: 100%;
+ }
+
+
+ 
+/* 
+==================================
+            Menubar CSS 
+==================================
+ */
+ .navbar-brand img{
+    width: 250px;
+    height: 160px;
+    object-fit: cover;
+ }
+ 
+
+ .nav-link{
+    font-size: 16px !important;
+    font-weight: 500;
+    line-height: 16px;
+    color: #282828;
+    transition: .5s;
+    position: relative;
+
+ }
+ .nav-link:hover{
+    color: #e72f59;
+ }
+ .nav-link::after{
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: 0;
+  background-color: #e72f59;
+  transition: .5s;
+ }
+ .nav-link:hover::after{
+  width: 100%;
+ }
+ .nav-link.active{
+    color: #e72f59 !important;
+ }
+ .menu-auth a,
+ .drop-btn{
+    display: inline-block;
+    padding: 8px 15px;
+    border: 1px solid #e72f59;
+    margin: 8px;
+    color: #e72f59;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 3px;
+    transition: .5s;
+ }
+ .menu-auth a:hover,
+ .drop-btn:hover{
+    color: #fff;
+    background-color: #e72f59;
+ }
+
+ /* 
+==================================
+            Carousel CSS 
+==================================
+ */
+ .carousel-item img{
+   height: 100vh;
+ }
+ .carousel-caption{
+   top: 50%;
+   color: #fff !important;
+ }
+ .carousel-caption h5{
+   font-size: 83px;
+   font-weight: 700;
+ }
+
+
+  /* 
+==================================
+            Weeding CSS 
+==================================
+ */
+ .weeding-soon{
+   background-color: #FAF5F4;
+ }
+ .weeding-wrap{
+   background-color: #fff;
+   padding: 100px 50px;
+   border-radius: 20px;
+   position: relative;
+   top: -100px;
+ }
+ .weeding-content h1{
+   font-size: 64px;
+   color: #282828;
+   font-weight: 700;
+ }
+ .weeding-content h2{
+   font-size: 42px;
+   color: #282828;
+   font-weight: 600;
+ }
+ .weeding-content h3{
+   color: #fff;
+   background-color: #e72f59;
+   padding: 60px 50px;
+   width: 300px;
+   text-align: center;
+   margin: 20px 0;
+ }
+ .weeding-content p{
+   color: #585858;
+   margin-top: 50px;
+ }
+
+ 
+/* 
+==================================
+            Footer CSS 
+==================================
+ */
+ .footer-top{
+   background-color: #2B2B2B;
+   padding: 50px 0;
+ }
+ .footer-top-content h2{
+   font-size: 27px;
+   font-weight: 300;
+
+ }
+ .foot-couple h1{
+   font-size: 49px;
+   line-height: 83px;
+   font-weight: 600;
+ }
+ .foot-couple img{
+   width: 200px;
+   margin: 0 20px;
+ }
+ .fot-menu{
+   list-style: none;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+ .fot-menu li a{
+   display: inline-block;
+   margin: 0 10px;
+   text-decoration: none;
+   color: #fff;
+   line-height: 32px;
+   transition: .5s;
+   position: relative;
+ }
+ .fot-menu li a:hover{
+   color: #e72f59;
+ }
+ .fot-menu li a::after{
+   content: '';
+   position: absolute;
+   width: 0%;
+   height: 2px;
+   background-color: #e72f59;
+   left: 0;
+   bottom: 0;
+   transition: .5s;
+ }
+ .fot-menu li a:hover::after{
+   width: 100%;
+ }
+ .footer-bottom{
+   background-color: #313131;
+   color: #cecece;
+   padding: 15px 0;
+ }
+
+  
+/* 
+==================================
+            Login page CSS 
+==================================
+ */
+
+ .common-form{
+  width: 50%;
+  background-color: #fff;
+  padding: 50px;
+  border-radius: 20px;
+  margin: 70px auto;
+ }
+ .common-form h1{
+  color: #e72f59;
+  font-size: 40px;
+ }
+ .form-btn{
+  width: 100%;
+  padding: 8px 10px;
+  background-color: #e72f59;
+  border: none;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 25px;
+ }
+
+ 
+  /* 
+==================================
+        Event page CSS 
+==================================
+ */
+
+ 
+.event-heading h5{
+  color: #e72f59;
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: 500;
+}
+.event-heading h1{
+  color: #282828;
+  font-size: 42px;
+  line-height: 42px;
+  font-weight: 700;
+}
+
+.card-img-top{  
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  align-items: center;
+  text-align: center;
+  margin: 50px auto;
+}
+
+.btn{
+  font-size: 16px;
+  font-weight: 400;
+  color: #585858;
+  background-color: #EFEAE3;
+  border-radius: 0px 0px 0px 0px;
+  padding: 14px 25px 14px 25px;
+  align-items: center;
+}
+
+.btn:hover{
+  font-size: 16px;
+  font-weight: 400;
+  color: #FFFFFF;
+  background-color: #F41E7E;
+  border-radius: 0px 0px 0px 0px;
+  padding: 14px 25px 14px 25px;
+  text-align: center;
+}
+.btn:hover:active{
+  color: rgb(219, 43, 140);
+}
+
+.card{
+  border: 10px solid #EFEAE3;
+  transition: .5s;
+  border-radius: 0;
+
+}
+.card:hover{
+  border-color: #F41E7E;
+}
+
+ 
+  /* 
+==================================
+        Couple page CSS 
+==================================
+ */
+
+
+.couple-content h3{
+    
+    font-weight: bold;
+}
+.social-link >li{
+    list-style: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+
+.social-link li a{
+   
+    color: black;
+    list-style: none;
+    padding:8px;
+    font-size: 20px;
+}
+
+.social-link li a:hover, .social-link li a:active{
+    color: #F41E7E;
+}
+
+.couple-content p{
+    text-align: center;
+    width: 400px;
+    margin: 0 auto;
+    font-family:'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+  /* 
+==================================
+        Brides page CSS 
+==================================
+ */
+ #brides-area{
+  background-color: #FAF5F4;
+  padding: 100px 0;
+  
+ }
+ .brides-img{
+  width: 235px;
+  height: 230px;
+ }
+ .brides-img img{
+  border: 10px solid #fff;
+ }
+
+ .brides-content{
+  background-color: #fff;
+  width: 70%;
+  position: relative;
+  margin-top: -30px;
+  margin-left: 25px;
+ }
+
+ .brides-content h3 a{
+  font-size: 22px;
+  color: #282828;
+  text-decoration: none;
+ }
+ .brides-content p{
+  color: #e72f59;
+ }
