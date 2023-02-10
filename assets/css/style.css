@@ -15,7 +15,14 @@
    height: 100%;
  }
 
-
+a{
+  text-decoration: none;
+}
+ul,ol{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
  
 /* 
 ==================================
@@ -356,3 +363,185 @@
  .brides-content p{
   color: #e72f59;
  }
+
+   /* 
+==================================
+        Profile page CSS 
+==================================
+ */
+ .profile-page-area{
+  background-color: #FAF5F4;
+ }
+.profile-sidebar{
+ 
+  background-color: #e72f59;
+  padding: 20px;
+  text-align: center;
+  height: 100%;
+}
+.profile-img{
+  width: 200px;
+  height: 200px;
+  margin: 20px auto;
+}
+.profile-img img{
+  border-radius: 50%;
+  object-fit: fill;
+}
+.profile-img a{
+  color: #fff;
+}
+.profile-img a:hover{
+  text-decoration: underline;
+}
+.profile-sidebar-menu {
+  border-top: 2px solid #fff;
+  padding-top: 30px;
+}
+.profile-sidebar-menu li a{
+  color: #fff;
+  font-size: 22px;
+  line-height: 44px;
+  font-weight: 400;
+  position: relative;
+
+}
+.profile-sidebar-menu li a::after{
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #fff;
+transition: .5s;
+}
+.profile-sidebar-menu li a:hover::after{
+  width: 100%;
+}
+.user-info{
+  background-color: #fff;
+  padding: 40px;
+  width: 80%;
+  margin: 50px auto;
+  border-radius: 10px;
+  position: relative;
+}
+.edit-btn{
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+.edit-btn a i{
+  color: #d9d9db;
+  font-size: 18px;
+  transition: .5s;
+  padding: 10px;
+}
+.edit-btn a i:hover{
+  color: #e72f59;
+}
+.user-info table {
+  border: none;
+  font-size: 16px;
+  height: 270px;
+  width: 80%;
+}
+
+   /* 
+==================================
+        Profile Details page CSS 
+==================================
+ */
+ .profile-details{
+  background-color: #FAF5F4;
+  padding: 50px 0;
+ }
+
+ .pro-info{
+  text-align: center;
+  padding: 40px;
+  height: 500px;
+  font-size: 20px;
+}
+
+.active{
+  background-color: #e72f59;
+  color: #fff;
+}
+
+.personal-image {
+  border-radius: 50%;
+  width: 400px;
+  height: 400px;
+  margin-right: 20px;
+}
+.user-details {
+  list-style-type: none;
+  margin: 20px;
+  padding: 0;
+}
+
+.user-details li {
+  margin-bottom: 10px;
+  color: #E72F59;
+  font-style: italic;
+  font-size: 20px;
+ 
+  
+}
+
+.sidebar-heading{
+  background-color: #e72f59;
+  color: #fff;
+  padding: 10px 5px;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 5px;
+}
+.single-item img{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: fill;
+}
+.single-item  h3 a{
+  color: #282828;
+  font-size: 18px;
+  margin-left: 10px;
+  transition: .5s;
+}
+.single-item  h3 a:hover{
+  color: #e72f59;
+}
+
+.tab {
+    overflow: hidden;
+    background-color: #f1f1f1;
+  }
+  
+  /* Style the buttons that are used to open the tab content */
+  .tab button {
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #E72F59;
+    color: white;
+    
+  }
+    
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    background-color: #fff;
+  }
+
+  

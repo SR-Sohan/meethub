@@ -22,7 +22,7 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link " aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="#">Event</a>
@@ -44,8 +44,8 @@
                     SR Sohan
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Log Out</a></li>
+                    <li><a class="dropdown-item" href="<?= settings()['homepage'] ?>profile.php">Profile</a></li>
+                    <li><a class="dropdown-item" href="<?= settings()['homepage'] ?>logout.php">Log Out</a></li>
                 </ul>
             </div>
 
