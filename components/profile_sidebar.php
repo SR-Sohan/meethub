@@ -13,7 +13,7 @@
             <li><a href="<?= settings()['homepage']?>address.php">Address</a></li>
             <li><a href="<?= settings()['homepage']?>educations.php">Educations</a></li>
             <li><a href="<?= settings()['homepage']?>social.php">Social Link</a></li>
-            <li><a href="">Ei tar name mone nai</a></li>
+            <li><a href="<?= settings()['homepage']?>preference.php">Preference</a></li>
         </ul>
     </div>
 </div>

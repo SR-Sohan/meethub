@@ -259,7 +259,7 @@ ul,ol{
   margin: 50px auto;
 }
 
-.btn{
+.card-body > .btn{
   font-size: 16px;
   font-weight: 400;
   color: #585858;
@@ -269,7 +269,7 @@ ul,ol{
   align-items: center;
 }
 
-.btn:hover{
+.card-body > .btn:hover{
   font-size: 16px;
   font-weight: 400;
   color: #FFFFFF;
@@ -278,7 +278,7 @@ ul,ol{
   padding: 14px 25px 14px 25px;
   text-align: center;
 }
-.btn:hover:active{
+.card-body > .btn:hover:active{
   color: rgb(219, 43, 140);
 }
 
@@ -422,7 +422,7 @@ transition: .5s;
 .user-info{
   background-color: #fff;
   padding: 40px;
-  width: 80%;
+  width: 90%;
   margin: 50px auto;
   border-radius: 10px;
   position: relative;
@@ -447,7 +447,21 @@ transition: .5s;
   height: 270px;
   width: 80%;
 }
-
+.add-family-icon{
+  width: 60px;
+  height: 50px;
+  background-color: #e72f59;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.add-family-icon i{
+  color: #fff;
+  font-size: 22px;
+  font-weight: 500;
+}
    /* 
 ==================================
         Profile Details page CSS 

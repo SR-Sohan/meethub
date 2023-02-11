@@ -9,7 +9,7 @@ use App\model\Category;
 use App\db;
 // $conn = db::connect();
 $db = new MysqliDb();
-$page = "Personal Info";
+$page = "Preference";
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
 
@@ -22,11 +22,11 @@ $page = "Personal Info";
     <div class="profile-page-area">
         <div class="container-fluid">
             <div class="row">
-                <?php require __DIR__ . '/components/profile_sidebar.php'; ?>
+            <?php require __DIR__ . '/components/profile_sidebar.php'; ?>
                 <div class="col-md-8 md-offset-1">
                     <div class="user-info shadow-lg">
                         <div class="edit-btn">
-                            <a href="<?= settings()['homepage'] ?>edit_personal.php?user_id=2"> <i class="fa fa-pen fa-xs edit"></i></a>
+                            <a href="<?= settings()['homepage']?>edit_profile.php?user_id=1"> <i class="fa fa-pen fa-xs edit"></i></a>
                         </div>
                         <table>
                             <tbody>
