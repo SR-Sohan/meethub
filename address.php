@@ -26,7 +26,7 @@ $page = "Address";
                 <div class="col-md-8 md-offset-1">
                     <div class="user-info shadow-lg">
                         <div class="edit-btn">
-                            <a href=""> <i class="fa fa-pen fa-xs edit"></i></a>
+                            <a href="<?= settings()['homepage']?>edit_address.php?user_id=3"> <i class="fa fa-pen fa-xs edit"></i></a>
                         </div>
                         <table>
                             <tbody>
