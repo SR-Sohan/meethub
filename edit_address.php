@@ -61,7 +61,7 @@ $r = $db->get('divisions');
                             <div class="mb-3">
                                 <label for="p_district" class="form-label">Present District: </label>
                                 <select onchange="districtChange(this.value)" class="form-select" name="p_district" id="p_district" aria-label="Default select example">
-                                    <option selected>Select District</option>
+                                    <option selected>Select Division</option>
                                 </select>
                             </div>
 
@@ -91,18 +91,22 @@ $r = $db->get('divisions');
 
                             <div class="mb-3">
                                 <label for="h_division" class="form-label">Home Division: </label>
-                                <select class="form-select" name="h_division" id="h_division" aria-label="Default select example">
-                                    <option selected>Choose Division</option>
-                                    <option value="bangladesh">Dhaka</option>
+                                <select onchange="hDivision(this.value)" class="form-select" name="h_division" id="h_division" aria-label="Default select example">
+                                    <option disabled selected>Select Division</option>
+                                    <?php
+                                    foreach ($r as $key => $divi) {
+                                        echo '<option value="' . $divi['id'] . '">' . $divi['name'] . '</option>';
+                                    }
+                                    ?>
 
                                 </select>
                             </div>
 
                             <div class="mb-3">
                                 <label for="h_district" class="form-label">Home District: </label>
-                                <select class="form-select" name="h_district" id="h_district" aria-label="Default select example">
-                                    <option selected>Choose District</option>
-                                    <option value="bangladesh">Kushtia</option>
+                                <select onchange="hDistrict(this.value)"  class="form-select" name="h_district" id="h_district" aria-label="Default select example">
+                                    <option disabled selected>Select Division</option>
+                                    
 
                                 </select>
                             </div>
@@ -110,8 +114,8 @@ $r = $db->get('divisions');
                             <div class="mb-3">
                                 <label for="h_thana" class="form-label">Home Thana: </label>
                                 <select class="form-select" name="h_thana" id="h_thana" aria-label="Default select example">
-                                    <option selected>Choose District</option>
-                                    <option value="bangladesh">Mirpur</option>
+                                    <option disabled selected>Select District</option>
+                                   
 
                                 </select>
                             </div>
@@ -134,7 +138,7 @@ $r = $db->get('divisions');
         </div>
     </div>
 
-  
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript">
         function divisionChange(id) {
@@ -150,6 +154,21 @@ $r = $db->get('divisions');
                 }
             })
         }
+        function hDivision(id) {
+            $('#h_district').html('');
+            $.ajax({
+                type: 'post',
+                url: 'ajaxwork.php',
+                data: {
+                    divi_id: id
+                },
+                success: function(data) {
+                    $('#h_district').html(data);
+                }
+            })
+        }
+
+
 
         function districtChange(id) {
             $('#p_thana').html('');
@@ -164,6 +183,20 @@ $r = $db->get('divisions');
                 }
             })
         }
+        function hDistrict(id) {
+            $('#h_thana').html('');
+            $.ajax({
+                type: 'post',
+                url: 'ajaxwork.php',
+                data: {
+                    dis_id: id
+                },
+                success: function(data) {
+                    $('#h_thana').html(data);
+                }
+            })
+        }
+
     </script>
 
     <?php
