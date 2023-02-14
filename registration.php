@@ -2,20 +2,27 @@
 require __DIR__ . '/vendor/autoload.php';
 $page = "Registration";
 if (isset($_POST['reg'])) {
+
   $db = new MysqliDb();
-  if ($_POST['pass1'] == $_POST['pass2']) {
+
+  //Store Data in Array
     $data = [
-      'name' => $db->escape($_POST['firstname']) . " " . $db->escape($_POST['lastname']),
+      'first_name' => $db->escape($_POST['fname']),
+      'last_name' => $db->escape($_POST['lname']),
+      'phone' => $db->escape($_POST['phone']),
       'email' => $db->escape($_POST['email']),
-      'password' => password_hash($_POST['pass1'], PASSWORD_DEFAULT),
-      'role' => "1"
+      'gender' => $db->escape($_POST['gender']),
+      'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
+      'role' => "1",
+      'status' => "1",
     ];
+
     if ($db->insert("users", $data)) {
       header("location:login.php");
     } else {
       $message = "Regitration failed!!";
     }
-  }
+  
 }
 ?>
 
@@ -27,34 +34,35 @@ if (isset($_POST['reg'])) {
   <?php require __DIR__ . '/components/menubar.php'; ?>
 
   <div class="container">
-    <form class="common-form shadow-lg">
+    <form class="common-form shadow-lg" method="post">
       <h1>Registration Form</h1>
+      <h2><?=$message??''?></h2>
       <hr>
       <br>
       <br>
       <div class="mb-3">
         <label for="fname" class="form-label">First Name: </label>
-        <input type="text" class="form-control" id="fname" aria-describedby="emailHelp" />
+        <input type="text" name="fname" class="form-control" id="fname" aria-describedby="emailHelp" />
       </div>
       <div class="mb-3">
         <label for="lname" class="form-label">Last Name: </label>
-        <input type="text" class="form-control" id="lname" aria-describedby="emailHelp" />
+        <input type="text" name="lname" class="form-control" id="lname" aria-describedby="emailHelp" />
       </div>
 
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address:
         </label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
       </div>
       <div class="mb-3">
         <label for="phone" class="form-label">Phone:
         </label>
-        <input type="number" class="form-control" id="phone" />
+        <input type="number" name="phone" class="form-control" id="phone" />
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password:
         </label>
-        <input type="password" class="form-control" id="exampleInputPassword1" />
+        <input type="password" name="password" class="form-control" id="exampleInputPassword1" />
       </div>
 
       <div class="mb-3">
@@ -67,7 +75,7 @@ if (isset($_POST['reg'])) {
 
       
 
-      <button type="submit" class="form-btn">Sign Up</button>
+      <button type="submit" name="reg" class="form-btn">Sign Up</button>
     </form>
   </div>
 

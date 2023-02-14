@@ -4,10 +4,10 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 require __DIR__ . '/../vendor/autoload.php';
 use App\auth\Admin;
-// if(!Admin::Check()){
-//     header('HTTP/1.1 503 Service Unavailable');
-//     exit;
-// }
+if(!Admin::Check()){
+    header('HTTP/1.1 503 Service Unavailable');
+    exit;
+}
 ?>
 <?php require __DIR__.'/components/header.php'; ?>
 

@@ -10,6 +10,13 @@ use App\db;
 // $conn = db::connect();
 $db = new MysqliDb();
 $page = "Profile";
+$id = $_SESSION['userid'];
+
+$db->where("id", $id);
+
+$row = $db->getOne("users");
+
+
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
 
@@ -26,40 +33,36 @@ $page = "Profile";
                 <div class="col-md-8 md-offset-1">
                     <div class="user-info shadow-lg">
                         <div class="edit-btn">
-                            <a href="<?= settings()['homepage']?>edit_profile.php?user_id=1"> <i class="fa fa-pen fa-xs edit"></i></a>
+                            <a href="<?= settings()['homepage']?>edit_profile.php?user_id=<?= $row['id']??'' ?>"> <i class="fa fa-pen fa-xs edit"></i></a>
                         </div>
                         <table>
                             <tbody>
                                 <tr>
-                                    <td>Name</td>
+                                    <td>First Name</td>
                                     <td>:</td>
-                                    <td>ImDezCode</td>
+                                    <td><?= $row['first_name']??'' ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Last Name</td>
+                                    <td>:</td>
+                                    <td><?= $row['last_name']??'' ?></td>
                                 </tr>
                                 <tr>
                                     <td>Email</td>
                                     <td>:</td>
-                                    <td>imdezcode@gmail.com</td>
+                                    <td><?= $row['email']??'' ?></td>
                                 </tr>
                                 <tr>
-                                    <td>Address</td>
+                                    <td>Phone</td>
                                     <td>:</td>
-                                    <td>Bali, Indonesia</td>
+                                    <td>+880<?= $row['phone']??'' ?></td>
                                 </tr>
                                 <tr>
-                                    <td>Hobbies</td>
+                                    <td>Gender</td>
                                     <td>:</td>
-                                    <td>Diving, Reading Book</td>
+                                    <td><?= strtoupper( $row['gender'])??'' ?></td>
                                 </tr>
-                                <tr>
-                                    <td>Job</td>
-                                    <td>:</td>
-                                    <td>Web Developer</td>
-                                </tr>
-                                <tr>
-                                    <td>Skill</td>
-                                    <td>:</td>
-                                    <td>PHP, HTML, CSS, Java</td>
-                                </tr>
+                               
                             </tbody>
                         </table>
                     </div>
