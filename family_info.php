@@ -31,7 +31,7 @@ $page = "Family Info";
                         <form class="mt-4" action="" method="post">
                             <div class="mb-3">
                                 <select class="form-select" name="relation" aria-label="Default select example">
-                                    <option selected>Choose Relation</option>
+                                    <option selected>Select Relation</option>
                                     <option value="father">Father</option>
                                     <option value="mother">Mother</option>
                                     <option value="brother">Brother</option>

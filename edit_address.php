@@ -60,25 +60,25 @@ $r = $db->get('divisions');
 
                             <div class="mb-3">
                                 <label for="p_district" class="form-label">Present District: </label>
-                                <select onchange="districtChange(this.value)" class="form-select" name="p_district" id="p_district" aria-label="Default select example">
-                                    <option selected>Select Division</option>
+                                <select onchange="districtChange(this.value)" class="form-select" name="p_district" id="p_district" aria-label="Default select example" required>
+                                    <option disabled selected>Select Division</option>
                                 </select>
                             </div>
 
                             <div class="mb-3">
                                 <label for="p_thana" class="form-label">Present Thana: </label>
-                                <select class="form-select" name="p_thana" id="p_thana" aria-label="Default select example">
+                                <select class="form-select" name="p_thana" id="p_thana" aria-label="Default select example" required>
                                     <option disabled selected>Select District</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="p_village" class="form-label">Present Village/Area: </label>
-                                <input class="form-control" type="text" name="p_village" id="p_village">
+                                <input class="form-control" type="text" name="p_village" id="p_village" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="p_house" class="form-label">Present House No: </label>
-                                <input class="form-control" type="text" name="p_house" id="p_house">
+                                <input class="form-control" type="text" name="p_house" id="p_house" required>
                             </div>
                             <hr>
                             <div class="mb-3">
@@ -91,7 +91,7 @@ $r = $db->get('divisions');
 
                             <div class="mb-3">
                                 <label for="h_division" class="form-label">Home Division: </label>
-                                <select onchange="hDivision(this.value)" class="form-select" name="h_division" id="h_division" aria-label="Default select example">
+                                <select onchange="hDivision(this.value)" class="form-select" name="h_division" id="h_division" aria-label="Default select example" required>
                                     <option disabled selected>Select Division</option>
                                     <?php
                                     foreach ($r as $key => $divi) {
@@ -104,7 +104,7 @@ $r = $db->get('divisions');
 
                             <div class="mb-3">
                                 <label for="h_district" class="form-label">Home District: </label>
-                                <select onchange="hDistrict(this.value)"  class="form-select" name="h_district" id="h_district" aria-label="Default select example">
+                                <select onchange="hDistrict(this.value)"  class="form-select" name="h_district" id="h_district" aria-label="Default select example" required>
                                     <option disabled selected>Select Division</option>
                                     
 
@@ -113,20 +113,20 @@ $r = $db->get('divisions');
 
                             <div class="mb-3">
                                 <label for="h_thana" class="form-label">Home Thana: </label>
-                                <select class="form-select" name="h_thana" id="h_thana" aria-label="Default select example">
+                                <select class="form-select" name="h_thana" id="h_thana" aria-label="Default select example" required>
                                     <option disabled selected>Select District</option>
                                    
 
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="h_village" class="form-label">Home Village/Area: </label>
-                                <input class="form-control" type="text" name="h_village" id="h_village">
+                                <label for="h_village" class="form-label">Village/Area: </label>
+                                <input class="form-control" type="text" name="h_village" id="h_village" required>
                             </div>
 
                             <div class="mb-3">
-                                <label for="h_house" class="form-label">Home House No: </label>
-                                <input class="form-control" type="text" name="h_house" id="h_house">
+                                <label for="h_house" class="form-label"></label> House No: </label>
+                                <input class="form-control" type="text" name="h_house" id="h_house" required>
                             </div>
 
 
