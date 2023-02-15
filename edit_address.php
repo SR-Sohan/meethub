@@ -10,9 +10,45 @@ use App\db;
 // $conn = db::connect();
 $db = new MysqliDb();
 $page = "Edit Address";
-
-$q = "select * from divisions where 1";
 $r = $db->get('divisions');
+
+$id = $_SESSION['userid'];
+
+$db->where("user_id ", $id);
+$row = $db->getOne("address");
+var_dump($row);
+if (isset($_POST['update'])) {
+    $data = [
+        'user_id' => $id,
+        'p_country' => $db->escape($_POST['p_country']),
+        'p_division' => $db->escape($_POST['p_division']),
+        'p_disrict' => $db->escape($_POST['p_district']),
+        'p_thana' => $db->escape($_POST['p_thana']),
+        'p_village' => $db->escape($_POST['p_village']),
+        'p_house' => $db->escape($_POST['p_house']),
+        'h_country' => $db->escape($_POST['h_country']),
+        'h_division' => $db->escape($_POST['h_division']),
+        'h_disrict' => $db->escape($_POST['h_district']),
+        'h_thana' => $db->escape($_POST['h_thana']),
+        'h_village' => $db->escape($_POST['h_village']),
+        'h_house' => $db->escape($_POST['h_house']),
+    ];
+
+    if ($row) {
+       
+        if ($db->update("address", $data)) {
+            header("location:address.php");
+        } else {
+            $message = "Update failed!!";
+        }
+    } else {
+        if ($db->insert("address", $data)) {
+            header("location:address.php");
+        } else {
+            $message = "Insert failed!!";
+        }
+    }
+}
 
 
 ?>
@@ -35,6 +71,7 @@ $r = $db->get('divisions');
 
                         <form class="" method="post">
                             <h1>Edit Address</h1>
+                            <h2 class="text-danger"><?= $message ?? '' ?></h2>
                             <hr>
                             <br>
                             <br>
@@ -104,9 +141,9 @@ $r = $db->get('divisions');
 
                             <div class="mb-3">
                                 <label for="h_district" class="form-label">Home District: </label>
-                                <select onchange="hDistrict(this.value)"  class="form-select" name="h_district" id="h_district" aria-label="Default select example" required>
+                                <select onchange="hDistrict(this.value)" class="form-select" name="h_district" id="h_district" aria-label="Default select example" required>
                                     <option disabled selected>Select Division</option>
-                                    
+
 
                                 </select>
                             </div>
@@ -115,7 +152,7 @@ $r = $db->get('divisions');
                                 <label for="h_thana" class="form-label">Home Thana: </label>
                                 <select class="form-select" name="h_thana" id="h_thana" aria-label="Default select example" required>
                                     <option disabled selected>Select District</option>
-                                   
+
 
                                 </select>
                             </div>
@@ -130,7 +167,7 @@ $r = $db->get('divisions');
                             </div>
 
 
-                            <button type="submit" class="form-btn">Update Address</button>
+                            <button type="submit" name="update" class="form-btn">Update Address</button>
                         </form>
                     </div>
                 </div>
@@ -154,6 +191,7 @@ $r = $db->get('divisions');
                 }
             })
         }
+
         function hDivision(id) {
             $('#h_district').html('');
             $.ajax({
@@ -183,6 +221,7 @@ $r = $db->get('divisions');
                 }
             })
         }
+
         function hDistrict(id) {
             $('#h_thana').html('');
             $.ajax({
@@ -196,7 +235,6 @@ $r = $db->get('divisions');
                 }
             })
         }
-
     </script>
 
     <?php

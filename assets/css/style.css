@@ -369,6 +369,9 @@ ul,ol{
         Profile page CSS 
 ==================================
  */
+ .user-info  td{
+  text-transform: capitalize;
+ }
  .profile-page-area{
   background-color: #FAF5F4;
  }
