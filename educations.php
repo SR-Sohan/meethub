@@ -25,10 +25,10 @@ $page = "Educations";
                 <?php require __DIR__ . '/components/profile_sidebar.php'; ?>
                 <div class="col-md-8 md-offset-1">
                     <div class="user-info shadow-lg">
-                        <div class="add-family-icon">
+                        <div id="addBtn" class="add-family-icon">
                             <i class="fa-solid fa-plus"></i>
                         </div>
-                        <form class="mt-4" action="" method="post">
+                        <form id="formList" class="mt-4 showHide" action="" method="post">
                             <div class="mb-3">
                                 <select class="form-select" name="relation" aria-label="Default select example">
                                     <option selected>Select Examination</option>

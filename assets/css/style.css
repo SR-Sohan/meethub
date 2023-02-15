@@ -23,7 +23,10 @@ ul,ol{
   margin: 0;
   padding: 0;
 }
- 
+
+ .showHide{
+  display: none;
+ }
 /* 
 ==================================
             Menubar CSS 

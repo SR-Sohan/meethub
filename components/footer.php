@@ -32,6 +32,7 @@
 
 
 <script src="<?= settings()['homepage'] ?>assets/js/bootstrap.bundle.min.js"></script>
+<script src="<?= settings()['homepage'] ?>assets/js/main.js"></script>
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
 (() => {
