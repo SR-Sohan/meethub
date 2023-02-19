@@ -10,6 +10,10 @@ use App\db;
 // $conn = db::connect();
 $db = new MysqliDb();
 $page = "Personal Info";
+
+$id = $_SESSION['userid'];
+$db->where("user_id ", $id);
+$row = $db->getOne("personal_info");
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
 
@@ -31,34 +35,44 @@ $page = "Personal Info";
                         <table>
                             <tbody>
                                 <tr>
-                                    <td>Name</td>
+                                    <td>Height</td>
                                     <td>:</td>
-                                    <td>ImDezCode</td>
+                                    <td><?= $row['height']??''?></td>
                                 </tr>
                                 <tr>
-                                    <td>Email</td>
+                                    <td>Weight</td>
                                     <td>:</td>
-                                    <td>imdezcode@gmail.com</td>
+                                    <td><?= $row['weight']??''?></td>
                                 </tr>
                                 <tr>
-                                    <td>Address</td>
+                                    <td>Skin Color</td>
                                     <td>:</td>
-                                    <td>Bali, Indonesia</td>
+                                    <td><?= $row['skin_color']??''?></td>
                                 </tr>
                                 <tr>
-                                    <td>Hobbies</td>
+                                    <td>Religion</td>
                                     <td>:</td>
-                                    <td>Diving, Reading Book</td>
+                                    <td><?= $row['religion']??''?></td>
                                 </tr>
                                 <tr>
-                                    <td>Job</td>
+                                    <td>Blood Group</td>
                                     <td>:</td>
-                                    <td>Web Developer</td>
+                                    <td><?= $row['blood_group']??''?></td>
                                 </tr>
                                 <tr>
-                                    <td>Skill</td>
+                                    <td>Hobby</td>
                                     <td>:</td>
-                                    <td>PHP, HTML, CSS, Java</td>
+                                    <td><?= $row['hobby']??''?></td>
+                                </tr>
+                                <tr>
+                                    <td>Profession</td>
+                                    <td>:</td>
+                                    <td><?= $row['profession']??''?></td>
+                                </tr>
+                                <tr>
+                                    <td>Income</td>
+                                    <td>:</td>
+                                    <td><?= $row['salary']??''?></td>
                                 </tr>
                             </tbody>
                         </table>

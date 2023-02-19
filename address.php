@@ -11,9 +11,7 @@ use App\db;
 
  $q = "SELECT address.* ,divisions.name AS pDivisions,districts.name AS pDistricts,upazilas.name AS pUpazila, divisions.name AS hDivisions, districts.name as hDistricts, upazilas.name as hUpazilas FROM address, divisions,districts,upazilas WHERE user_id = 1 AND divisions.id = address.p_division AND districts.id = address.p_disrict and upazilas.id = address.p_thana and divisions.id = address.h_division AND districts.id = address.h_disrict AND upazilas.id = address.h_thana";
 
- $r = $conn->query($q)->fetch_assoc();
 
- var_dump($r);
 $db = new MysqliDb();
 $page = "Address";
 $id = $_SESSION['userid'];

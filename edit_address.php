@@ -16,7 +16,7 @@ $id = $_SESSION['userid'];
 
 $db->where("user_id ", $id);
 $row = $db->getOne("address");
-var_dump($row);
+
 if (isset($_POST['update'])) {
     $data = [
         'user_id' => $id,

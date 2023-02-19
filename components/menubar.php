@@ -17,13 +17,16 @@ if (session_status() === PHP_SESSION_NONE) {
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="#">Home</a>
+                    <a class="nav-link " aria-current="page" href="<?= settings()['homepage'] ?>index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Event</a>
+                    <a class="nav-link" aria-current="page" href="<?= settings()['homepage'] ?>event.php">Event</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Gallery</a>
+                    <a class="nav-link" aria-current="page" href="<?= settings()['homepage'] ?>person.php?person=brides">Brides</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="<?= settings()['homepage'] ?>person.php?person=grooms">Grooms</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="<?= settings()['homepage'] ?>contact.php">Contact</a>
