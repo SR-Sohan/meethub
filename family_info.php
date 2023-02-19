@@ -9,7 +9,27 @@ use App\model\Category;
 use App\db;
 // $conn = db::connect();
 $db = new MysqliDb();
+$id = $_SESSION['userid'];
 $page = "Family Info";
+$family=$db->get("family_info");
+if (isset($_POST['add'])) {
+    $data= [
+        'user_id' => $db->escape($_POST['user_id']),
+        'relation' => $db->escape($_POST['relation']),
+        'name' => $db->escape($_POST['name']),
+        'profession' => $db->escape($_POST['profession']),
+        'status' => $db->escape($_POST['status']),
+        'phone' => $db->escape($_POST['phone']),
+    ];
+
+    
+
+    if ($db->insert("family_info",$data)) {
+        header("location:".$_SERVER['PHP_SELF']);
+    }else {
+        $message= "Update Failed!!";
+    }
+}
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
 
@@ -29,7 +49,9 @@ $page = "Family Info";
                             <i class="fa-solid fa-plus"></i>
                         </div>
                         <form id="formList" class="mt-4  showHide" action="" method="post">
+                            <input type="hidden" name="user_id" value="<?= $id?>">
                             <div class="mb-3">
+                                <h1>Edit family info</h1>
                                 <select class="form-select" name="relation" aria-label="Default select example">
                                     <option selected>Select Relation</option>
                                     <option value="father">Father</option>
@@ -58,7 +80,7 @@ $page = "Family Info";
                                 <label for="phone" class="form-label">Phone: </label>
                                 <input name="phone" type="number" class="form-control" id="phone" aria-describedby="emailHelp" />
                             </div>
-                            <button type="submit" class="form-btn">Add</button>
+                            <button type="submit" class="form-btn" name="add">Add</button>
                         </form>
 
                         <div class="family-list mt-4">
@@ -74,30 +96,26 @@ $page = "Family Info";
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php
+
+                                    if (isset($family)) {
+                                        
+                                        foreach ($family as $key => $value) {
+
+                                       ?>
                                     <tr>
-                                        <th scope="row">Md Amin Ali</th>
-                                        <td>Father</td>
-                                        <td>Teacher</td>
-                                        <td>High Level</td>
-                                        <td>011122222</td>
-                                        <td><a href="" class="btn btn-outline-primary">Edit</a> <a href="" class="btn btn-outline-danger">Delete</a></td>
+                                        <th scope="row"><?= $value['name']?></th>
+                                        <td><?= $value['relation']?></td>
+                                        <td><?= $value['profession']?></td>
+                                        <td><?= $value['status']?></td>
+                                        <td><?= $value['phone']?></td>
+                                        <td><a href="" class="btn btn-outline-primary">Edit</a> <a href="<?= settings()['homepage']?>delete_family.php?id=<?= $value['id']?>" class="btn btn-outline-danger">Delete</a></td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">Md Amin Ali</th>
-                                        <td>Father</td>
-                                        <td>Teacher</td>
-                                        <td>High Level</td>
-                                        <td>011122222</td>
-                                        <td><a href="" class="btn btn-outline-primary">Edit</a> <a href="" class="btn btn-outline-danger">Delete</a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Md Amin Ali</th>
-                                        <td>Father</td>
-                                        <td>Teacher</td>
-                                        <td>High Level</td>
-                                        <td>011122222</td>
-                                        <td><a href="" class="btn btn-outline-primary">Edit</a> <a href="" class="btn btn-outline-danger">Delete</a></td>
-                                    </tr>
+                                    <?php
+                                        }}
+                            
+                                    ?>
+                                    
                                 </tbody>
                             </table>
                         </div>

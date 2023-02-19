@@ -18,6 +18,7 @@ if (isset($_POST['login'])) {
       $_SESSION['loggedin'] = true;
       $_SESSION['userid'] = $row['id'];
       $_SESSION['fname'] = $row['first_name'];
+      $_SESSION['lname'] = $row['last_name'];
       $_SESSION['role'] = $row['role'];
 
       //Role Check

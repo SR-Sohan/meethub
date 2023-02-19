@@ -9,7 +9,27 @@ use App\model\Category;
 use App\db;
 // $conn = db::connect();
 $db = new MysqliDb();
+$id = $_SESSION['userid'];
 $page = "Social";
+$social=$db->get("social");
+if (isset($_POST['add'])) {
+    $data= [
+        'user_id' => $db->escape($_POST['user_id']),
+        'name' => $db->escape($_POST['social']),
+        'link' => $db->escape($_POST['link']),
+        
+    ];
+
+    
+
+    if ($db->insert("social",$data)) {
+        header("location:".$_SERVER['PHP_SELF']);
+    }else {
+        $message= "Update Failed!!";
+    }
+}
+
+
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
 
@@ -29,8 +49,9 @@ $page = "Social";
                             <i class="fa-solid fa-plus"></i>
                         </div>
                         <form id="formList" class="mt-4 showHide" action="" method="post">
+                            <input type="hidden" name="userid" value="<?=$id?>">
                             <div class="mb-3">
-                                <select class="form-select" name="relation" aria-label="Default select example">
+                                <select class="form-select" name="social" aria-label="Default select example">
                                     <option selected>Select Social</option>
                                     <option value="facebook">Facebook</option>
                                     <option value="twitter">Twitter</option>
@@ -44,7 +65,7 @@ $page = "Social";
                                 <label for="name" class="form-label">Profile Link: </label>
                                 <input name="link" type="text" class="form-control" id="name" aria-describedby="emailHelp" />
                             </div>
-                            <button type="submit" class="form-btn">Add</button>
+                            <button type="submit" class="form-btn" name="add">Add</button>
                         </form>
 
                         <div class="family-list mt-4">
@@ -57,12 +78,23 @@ $page = "Social";
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <?php
+                                    if (isset($social)) {
+                                        
+                                        foreach ($social as $key => $value) {
+
+                                       ?>
+                                    
+
                                     <tr>
-                                        <th scope="row">Facebook</th>
-                                        <td>https://www.facebook.com/sohanur.1522/</td>
+                                        <th scope="row"><?= strtoupper($value['name'])?></th>
+                                        <td><?= $value['link']?></td>
                                        
-                                        <td><a href="" class="btn btn-outline-primary">Edit</a> <a href="" class="btn btn-outline-danger">Delete</a></td>
+                                        <td><a href="" class="btn btn-outline-primary">Edit</a> <a href="<?= settings()['homepage']?>delete_social.php?id=<?= $value['id']?>" class="btn btn-outline-danger">Delete</a></td>
                                     </tr>
+                                    <?php
+                                        }}
+                                    ?>
 
                                 </tbody>
                             </table>

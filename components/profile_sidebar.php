@@ -1,10 +1,17 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+?>
+
 <div class="col-md-3">
     <div class="profile-sidebar text-white">
         <div class="profile-img">
             <img src="<?= settings()['homepage'] ?>assets/images/brides2.jpg" alt="">
             <a href="">Change Profile</a>
         </div>
-        <h2 class="my-3">Tayeba Tabbasum</h2>
+        <h2 class="my-3">  <?php echo $_SESSION['fname']." ".$_SESSION['lname']??'' ?></h2>
 
         <ul class="profile-sidebar-menu">
             <li><a href="<?= settings()['homepage']?>profile.php">Profile</a></li>

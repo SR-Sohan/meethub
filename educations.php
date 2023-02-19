@@ -9,7 +9,27 @@ use App\model\Category;
 use App\db;
 // $conn = db::connect();
 $db = new MysqliDb();
+$id = $_SESSION['userid'];
 $page = "Educations";
+$education = $db->get("educations");
+if (isset($_POST['add'])) {
+    $data = [
+        'user_id' => $db->escape($_POST['user_id']),
+        'exam' => $db->escape($_POST['exam']),
+        'board' => $db->escape($_POST['board']),
+        'institute' => $db->escape($_POST['institute']),
+        'year' => $db->escape($_POST['year']),
+        'result' => $_POST['result'],
+    ];
+
+
+
+    if ($db->insert("educations", $data)) {
+        header("location:" . $_SERVER['PHP_SELF']);
+    } else {
+        $message = "Update Failed!!";
+    }
+}
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
 
@@ -29,8 +49,9 @@ $page = "Educations";
                             <i class="fa-solid fa-plus"></i>
                         </div>
                         <form id="formList" class="mt-4 showHide" action="" method="post">
+                            <input type="hidden" name="user_id" value="<?= $id ?>">
                             <div class="mb-3">
-                                <select class="form-select" name="relation" aria-label="Default select example">
+                                <select class="form-select" name="exam" aria-label="Default select example">
                                     <option selected>Select Examination</option>
                                     <option value="psc">PSC</option>
                                     <option value="jsc">JSC</option>
@@ -62,9 +83,9 @@ $page = "Educations";
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Result: </label>
-                                <input name="result" type="number" class="form-control" id="phone" aria-describedby="emailHelp" />
+                                <input name="result" type="text" class="form-control" id="phone" aria-describedby="emailHelp" />
                             </div>
-                            <button type="submit" class="form-btn">Add</button>
+                            <button type="submit" class="form-btn" name="add">Add</button>
                         </form>
 
                         <div class="family-list mt-4">
@@ -80,15 +101,26 @@ $page = "Educations";
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">SSC</th>
-                                        <td>Dhaka</td>
-                                        <td>Bangla College</td>
-                                        <td>2013</td>
-                                        <td>4.25</td>
-                                        <td><a href="" class="btn btn-outline-primary">Edit</a> <a href="" class="btn btn-outline-danger">Delete</a></td>
-                                    </tr>
-                                 
+                                    <?php
+                                    if (isset($education)) {
+
+                                        foreach ($education as $key => $value) {
+
+                                    ?>
+                                            <tr>
+                                                <th scope="row"><?= strtoupper($value['exam']) ?></th>
+                                                <td><?= $value['board'] ?></td>
+                                                <td><?= $value['Institute'] ?></td>
+                                                <td><?= $value['year'] ?></td>
+                                                <td><?= $value['result'] ?></td>
+                                                <td><a href="" class="btn btn-outline-primary">Edit</a> <a href="<?= settings()['homepage'] ?>delete_educations.php?id=<?= $value['id'] ?>" class="btn btn-outline-danger">Delete</a></td>
+                                            </tr>
+                                    <?php
+                                        }
+                                    }
+
+                                    ?>
+
                                 </tbody>
                             </table>
                         </div>

@@ -5,10 +5,6 @@ if (session_status() === PHP_SESSION_NONE) {
 
 ?>
 
-<?php
-
-?>
-
 <nav class="navbar navbar-expand-lg ">
     <div class="container">
         <a class="navbar-brand" href="<?= settings()['homepage'] ?> ">
