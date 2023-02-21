@@ -11,6 +11,7 @@ use App\db;
 $db = new MysqliDb();
 $id = $_SESSION['userid'];
 $page = "Family Info";
+$db->where("user_id", $id);
 $family=$db->get("family_info");
 if (isset($_POST['add'])) {
     $data= [

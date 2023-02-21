@@ -12,6 +12,7 @@ $db = new MysqliDb();
 $id = $_SESSION['userid'];
 $page = "Preference";
 $r = $db->get('districts');
+$db->where("user_id", $id);
 $preference = $db->get("partner_preference");
 if (isset($_POST['add'])) {
     $data = [

@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <div class="col-md-3">
     <div class="profile-sidebar text-white">
         <div class="profile-img">
-            <img src="<?= settings()['homepage'] ?>assets/images/brides2.jpg" alt="">
+            <img src="<?= settings()['homepage'] ?>assets/images/no-image.png" alt="">
             <a href="">Change Profile</a>
         </div>
         <h2 class="my-3">  <?php echo $_SESSION['fname']." ".$_SESSION['lname']??'' ?></h2>

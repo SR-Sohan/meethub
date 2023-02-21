@@ -11,6 +11,7 @@ use App\db;
 $db = new MysqliDb();
 $id = $_SESSION['userid'];
 $page = "Educations";
+$db->where("user_id", $id);
 $education = $db->get("educations");
 if (isset($_POST['add'])) {
     $data = [

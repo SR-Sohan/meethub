@@ -5,3 +5,19 @@ WHERE  address.p_division = divisions.id AND address.p_disrict = districts.id an
 
 
 SELECT address.* ,divisions.name AS pDivisions,districts.name AS pDistricts,upazilas.name AS pUpazila, divisions.name AS hDivisions, districts.name as hDistricts, upazilas.name as hUpazilas FROM address, divisions,districts,upazilas WHERE user_id = 1 AND divisions.id = address.p_division AND districts.id = address.p_disrict and upazilas.id = address.p_thana and divisions.id = address.h_division AND districts.id = address.h_disrict AND upazilas.id = address.h_thana
+
+
+SELECT address.*,
+divisions.name AS pDivisions,
+districts.name AS pDistricts,
+upazilas.name AS pUpazila
+FROM 
+address, 
+divisions,
+districts,
+upazilas 
+WHERE 
+address.user_id = 1 AND
+divisions.id = address.p_division AND
+districts.id = address.p_disrict and
+upazilas.id = address.p_thana;

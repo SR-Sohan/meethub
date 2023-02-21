@@ -5,6 +5,7 @@ class db{
     public static function connect(){
         try{
             self::$conn = new \mysqli(settings()['hostname'],settings()['user'],settings()['password'],settings()['database']) or die("<h1>Connection ERROR!!</h1>");
+            
         return self::$conn;
         }
         catch(\Exception $e){

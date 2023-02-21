@@ -14,7 +14,6 @@ $page = "Edit Profile";
 $id = $_SESSION['userid'];
 
 $db->where("id", $id);
-
 $row = $db->getOne("users");
 
 if (isset($_POST['update'])) {
@@ -25,6 +24,8 @@ if (isset($_POST['update'])) {
         'email' => $db->escape($_POST['email']),
         'gender' => $db->escape($_POST['gender']),
     ];
+
+    $db->where("id", $id);
     if ($db->update ("users", $data)) {
         header("location:profile.php");
     } else {

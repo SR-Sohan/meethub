@@ -13,7 +13,6 @@ $page = "Profile";
 $id = $_SESSION['userid'];
 
 $db->where("id", $id);
-
 $row = $db->getOne("users");
 
 

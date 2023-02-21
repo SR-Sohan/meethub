@@ -27,7 +27,7 @@ if(isset($_POST['update'])){
         'salary' => $db->escape($_POST['income']),
     ];
     if ($row) {
-       
+        $db->where("user_id", $id);
         if ($db->update("personal_info", $data)) {
             header("location:personal_info.php");
         } else {

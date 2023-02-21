@@ -16,33 +16,38 @@ $id = $_SESSION['userid'];
 
 $db->where("user_id ", $id);
 $row = $db->getOne("address");
+$db->where("user_id ", $id);
+$row2 = $db->getOne("home_address");
 
 if (isset($_POST['update'])) {
     $data = [
-        'user_id' => $id,
+        'user_id' => $db->escape($_POST['user_id']),
         'p_country' => $db->escape($_POST['p_country']),
         'p_division' => $db->escape($_POST['p_division']),
         'p_disrict' => $db->escape($_POST['p_district']),
         'p_thana' => $db->escape($_POST['p_thana']),
         'p_village' => $db->escape($_POST['p_village']),
-        'p_house' => $db->escape($_POST['p_house']),
-        'h_country' => $db->escape($_POST['h_country']),
-        'h_division' => $db->escape($_POST['h_division']),
-        'h_disrict' => $db->escape($_POST['h_district']),
-        'h_thana' => $db->escape($_POST['h_thana']),
-        'h_village' => $db->escape($_POST['h_village']),
-        'h_house' => $db->escape($_POST['h_house']),
+        'p_house' => $db->escape($_POST['p_house'])
+    ];
+    $data2 = [
+        'user_id' => $db->escape($_POST['user_id']),        
+        'country' => $db->escape($_POST['h_country']),
+        'division' => $db->escape($_POST['h_division']),
+        'district' => $db->escape($_POST['h_district']),
+        'thana' => $db->escape($_POST['h_thana']),
+        'village' => $db->escape($_POST['h_village']),
+        'house' => $db->escape($_POST['h_house']),
     ];
 
-    if ($row) {
-       
-        if ($db->update("address", $data)) {
+    if ($row && $row2) {
+        $db->where("user_id ", $id);
+        if ($db->update("address", $data) && $db->update("home_address", $data2)) {
             header("location:address.php");
         } else {
             $message = "Update failed!!";
         }
     } else {
-        if ($db->insert("address", $data)) {
+        if ($db->insert("address", $data) && $db->insert("home_address", $data2)) {
             header("location:address.php");
         } else {
             $message = "Insert failed!!";
@@ -75,6 +80,7 @@ if (isset($_POST['update'])) {
                             <hr>
                             <br>
                             <br>
+                            <input type="hidden" name="user_id" value="<?=$id?>">
                             <div>
                                 <label for="p_country" class="form-label">Present Country: </label>
                                 <select class="form-select" name="p_country" id="p_country" aria-label="Default select example">

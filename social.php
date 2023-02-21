@@ -11,13 +11,13 @@ use App\db;
 $db = new MysqliDb();
 $id = $_SESSION['userid'];
 $page = "Social";
+$db->where("user_id", $id);
 $social=$db->get("social");
 if (isset($_POST['add'])) {
     $data= [
-        'user_id' => $db->escape($_POST['user_id']),
+        'user_id' => $db->escape($_POST['userid']),
         'name' => $db->escape($_POST['social']),
-        'link' => $db->escape($_POST['link']),
-        
+        'link' => $db->escape($_POST['link']),        
     ];
 
     

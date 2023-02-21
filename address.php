@@ -7,16 +7,42 @@ require __DIR__ . '/vendor/autoload.php';
 use App\User;
 use App\model\Category;
 use App\db;
- $conn = db::connect();
-
- $q = "SELECT address.* ,divisions.name AS pDivisions,districts.name AS pDistricts,upazilas.name AS pUpazila, divisions.name AS hDivisions, districts.name as hDistricts, upazilas.name as hUpazilas FROM address, divisions,districts,upazilas WHERE user_id = 1 AND divisions.id = address.p_division AND districts.id = address.p_disrict and upazilas.id = address.p_thana and divisions.id = address.h_division AND districts.id = address.h_disrict AND upazilas.id = address.h_thana";
-
-
-$db = new MysqliDb();
-$page = "Address";
 $id = $_SESSION['userid'];
-$db->where("user_id", $id);
-$row = $db->getOne("address");
+$conn = db::connect();
+$q = "SELECT address.*,
+ divisions.name AS pDivisions,
+ districts.name AS pDistricts,
+ upazilas.name AS pUpazila
+ FROM 
+ address, 
+ divisions,
+ districts,
+ upazilas 
+ WHERE 
+ address.user_id = ".$id." AND
+ divisions.id = address.p_division AND
+ districts.id = address.p_disrict and
+ upazilas.id = address.p_thana";
+
+$q2 = "SELECT home_address.*,
+ divisions.name AS hDivisions,
+ districts.name AS hDistricts,
+ upazilas.name AS hUpazila
+ FROM 
+ home_address, 
+ divisions,
+ districts,
+ upazilas 
+ WHERE 
+ home_address.user_id = ".$id." AND
+ divisions.id = home_address.division AND
+ districts.id = home_address.district and
+ upazilas.id = home_address.thana";
+
+$r =  $conn->query($q)->fetch_assoc();
+$r2 =  $conn->query($q2)->fetch_assoc();
+$page = "Address";
+
 
 
 ?>
@@ -39,37 +65,69 @@ $row = $db->getOne("address");
                         </div>
                         <table>
                             <tbody>
+                            <hr/>
                                 <tr>
                                     <td>Present Country</td>
                                     <td>:</td>
-                                    <td><?=  $row['p_country']??''?></td>
+                                    <td><?=  $r['p_country']??''?></td>
                                 </tr>
                                 <tr>
-                                    <td>Email</td>
+                                    <td>Present Division</td>
                                     <td>:</td>
-                                    <td>imdezcode@gmail.com</td>
+                                    <td><?=  $r['pDivisions']??''?></td>
                                 </tr>
                                 <tr>
-                                    <td>Address</td>
+                                    <td>Present Districts</td>
                                     <td>:</td>
-                                    <td>Bali, Indonesia</td>
+                                    <td><?=  $r['pDistricts']??''?></td>
                                 </tr>
                                 <tr>
-                                    <td>Hobbies</td>
+                                    <td>Present Thana</td>
                                     <td>:</td>
-                                    <td>Diving, Reading Book</td>
+                                    <td><?=  $r['pUpazila']??''?></td>
                                 </tr>
                                 <tr>
-                                    <td>Job</td>
+                                    <td>Present Village/Area</td>
                                     <td>:</td>
-                                    <td>Web Developer</td>
+                                    <td><?=  $r['p_village']??''?></td>
                                 </tr>
                                 <tr>
-                                    <td>Skill</td>
+                                    <td>Present House No</td>
                                     <td>:</td>
-                                    <td>PHP, HTML, CSS, Java</td>
+                                    <td><?=  $r['p_house']??''?></td>
                                 </tr>
-                            </tbody>
+                                <tr>
+                                    <td>Home Country</td>
+                                    <td>:</td>
+                                    <td><?=  $r2['country']??''?></td>
+                                </tr>
+                                <tr>
+                                    <td>Home Division</td>
+                                    <td>:</td>
+                                    <td><?=  $r2['hDivisions']??''?></td>
+                                </tr>
+                                <tr>
+                                    <td>Home Districts</td>
+                                    <td>:</td>
+                                    <td><?=  $r2['hDistricts']??''?></td>
+                                </tr>
+                                <tr>
+                                    <td>Home Thana</td>
+                                    <td>:</td>
+                                    <td><?=  $r2['hUpazila']??''?></td>
+                                </tr>
+                                <tr>
+                                    <td>Home Village/Area</td>
+                                    <td>:</td>
+                                    <td><?=  $r2['village']??''?></td>
+                                </tr>
+                                <tr>
+                                    <td>Home House No</td>
+                                    <td>:</td>
+                                    <td><?=  $r2['house']??''?></td>
+                                </tr>
+
+                              </tbody>
                         </table>
                     </div>
                 </div>
