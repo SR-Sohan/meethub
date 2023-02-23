@@ -366,6 +366,16 @@ ul,ol{
  .brides-content p{
   color: #e72f59;
  }
+    /* 
+==================================
+        Person CSS 
+==================================
+ */
+ .person-wrap{
+  border: 1px solid #e72f59;
+  border-radius: 10px;
+  background-color: #fff;
+ }
 
    /* 
 ==================================

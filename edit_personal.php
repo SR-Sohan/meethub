@@ -79,23 +79,23 @@ if(isset($_POST['update'])){
                             <div class="mb-3">
                                 <select class="form-select" name="religion" aria-label="Default select example">
                                     <option selected>Choose Religion</option>
-                                    <option <?php echo $row['religion'] == "islam" ? 'selected' : "" ?> value="islam">Islam</option>
-                                    <option <?php echo $row['religion'] == "hindu" ? 'selected' : "" ?>  value="hindu">Hindu</option>
-                                    <option <?php echo $row['religion'] == "christian" ? 'selected' : "" ?>  value="christian">Christian</option>
-                                    <option <?php echo $row['religion'] == "buddha" ? 'selected' : "" ?>  value="buddha">Buddha</option>
+                                    <option <?php echo isset($row) && $row['religion'] == "islam" ? 'selected' : "" ?> value="islam">Islam</option>
+                                    <option <?php echo  isset($row) && $row['religion'] == "hindu" ? 'selected' : "" ?>  value="hindu">Hindu</option>
+                                    <option <?php echo  isset($row) && $row['religion'] == "christian" ? 'selected' : "" ?>  value="christian">Christian</option>
+                                    <option <?php echo  isset($row) &&  isset($row) && $row['religion'] == "buddha" ? 'selected' : "" ?>  value="buddha">Buddha</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <select class="form-select" name="blood" aria-label="Default select example">
                                     <option selected>Choose Blood Group</option>
-                                    <option <?php echo $row['blood_group'] == "a+" ? 'selected' : "" ?>  value="a+">A+</option>
-                                    <option <?php echo $row['blood_group'] == "b-" ? 'selected' : "" ?>  value="a-">A-</option>
-                                    <option <?php echo $row['blood_group'] == "b+" ? 'selected' : "" ?>  value="b+">B+</option>
-                                    <option <?php echo $row['blood_group'] == "b-" ? 'selected' : "" ?>  value="b-">B-</option>
-                                    <option <?php echo $row['blood_group'] == "ab+" ? 'selected' : "" ?>  value="ab+">AB+</option>
-                                    <option <?php echo $row['blood_group'] == "ab-" ? 'selected' : "" ?>  value="ab-">AB-</option>
-                                    <option <?php echo $row['blood_group'] == "o+" ? 'selected' : "" ?>  value="o+">O+</option>
-                                    <option <?php echo $row['blood_group'] == "o-" ? 'selected' : "" ?>  value="o-">O-</option>
+                                    <option <?php echo isset($row) && $row['blood_group'] == "a+" ? 'selected' : "" ?>  value="a+">A+</option>
+                                    <option <?php echo isset($row) && $row['blood_group'] == "b-" ? 'selected' : "" ?>  value="a-">A-</option>
+                                    <option <?php echo isset($row) && $row['blood_group'] == "b+" ? 'selected' : "" ?>  value="b+">B+</option>
+                                    <option <?php echo isset($row) && $row['blood_group'] == "b-" ? 'selected' : "" ?>  value="b-">B-</option>
+                                    <option <?php echo isset($row) && $row['blood_group'] == "ab+" ? 'selected' : "" ?>  value="ab+">AB+</option>
+                                    <option <?php echo isset($row) && $row['blood_group'] == "ab-" ? 'selected' : "" ?>  value="ab-">AB-</option>
+                                    <option <?php echo isset($row) && $row['blood_group'] == "o+" ? 'selected' : "" ?>  value="o+">O+</option>
+                                    <option <?php echo isset($row) && $row['blood_group'] == "o-" ? 'selected' : "" ?>  value="o-">O-</option>
                                 </select>
                             </div>
                             <div class="mb-3">

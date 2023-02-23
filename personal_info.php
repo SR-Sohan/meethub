@@ -30,7 +30,7 @@ $row = $db->getOne("personal_info");
                 <div class="col-md-8 md-offset-1">
                     <div class="user-info shadow-lg">
                         <div class="edit-btn">
-                            <a href="<?= settings()['homepage'] ?>edit_personal.php?user_id=2"> <i class="fa fa-pen fa-xs edit"></i></a>
+                            <a href="<?= settings()['homepage'] ?>edit_personal.php?user_id=<?= $id ?>"> <i class="fa fa-pen fa-xs edit"></i></a>
                         </div>
                         <table>
                             <tbody>
