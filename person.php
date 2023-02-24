@@ -7,16 +7,36 @@ require __DIR__ . '/vendor/autoload.php';
 use App\User;
 use App\model\Category;
 use App\db;
-// $conn = db::connect();
+
+$conn = db::connect();
 $db = new MysqliDb();
 $page = "Couple";
 
 $gender = $_GET['person'] == "brides" ? "female" : "male";
 
-$db->where("gender", $gender);
-$db->where("role", "1");
-$db->where("status", "2");
-$user = $db->get("users");
+$q = "SELECT users.id, concat(users.first_name,' ',users.last_name) as name,
+divisions.name as divisions,
+districts.name as districts,
+personal_info.* 
+FROM `users`,address,divisions,districts,personal_info
+WHERE 
+users.gender = '".$gender."' AND
+users.role = '1' AND
+users.status = '2' AND
+address.user_id = users.id AND
+divisions.id = address.p_division AND
+districts.id = address.p_disrict AND
+personal_info.user_id = users.id";
+
+$result = $conn->query($q);
+
+
+
+// $db->where("gender", $gender);
+// $db->where("role", "1");
+// $db->where("status", "2");
+// $user = $db->get("users");
+
 
 
 
@@ -40,10 +60,8 @@ $user = $db->get("users");
                 <div class="row">
                     <?php
 
-                    if (isset($user)) {
-                        for ($i=0; $i < count($user); $i++) { 
-                            $db->where("user_id", $user[$i]['id']);                        
-                            $address = $db->getOne("address");
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
 
                     ?>
                             <div class="col-md-6">
@@ -56,14 +74,15 @@ $user = $db->get("users");
                                         </div>
                                         <div class="col-md-7">
                                             <div class="person-content">
-                                                <h3><?= $user[$i]['first_name']." ".$user[$i]['last_name'] ?></h3>
-                                                <p>Address: <?= $address['p_division']?></p>
-                                                <p>Height: 5.7"</p>
-                                                <p>Weight: 60kg</p>
-                                                <p>Religion: Islam</p>
-                                                <p>Education: BA</p>
-                                                <p>Occupation: Student</p>
-                                                <a class="btn btn-outline-danger" href="<?= settings()['homepage'] ?>person-details.php?id=<?= $user[$i]['id']?>">View Details</a>
+                                                <h3><?= $row['name'] ?></h3>
+                                                <p>Address: <?= $row['districts'] ?>, <?= $row['divisions'] ?>.</p>
+                                                <p>Height: <?= $row['height'] ?>"</p>
+                                                <p>Weight: <?= $row['weight'] ?>.kg</p>
+                                                <p>Religion: <?= $row['religion'] ?>.</p>
+                                                <p>Blood Group: <?= $row['blood_group'] ?>.</p>
+                                                <p>Occupation: <?= $row['profession'] ?></p>
+                                                <p>Income: <?= '$'.$row['salary'] ?></p>
+                                                <a class="btn btn-outline-danger" href="<?= settings()['homepage'] ?>person-details.php?id=<?= $row['user_id'] ?>">View Details</a>
                                             </div>
                                         </div>
                                     </div>

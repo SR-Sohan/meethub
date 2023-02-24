@@ -21,3 +21,21 @@ address.user_id = 1 AND
 divisions.id = address.p_division AND
 districts.id = address.p_disrict and
 upazilas.id = address.p_thana;
+
+
+SELECT users.id, concat(users.first_name,' ',users.last_name) as name,
+divisions.name as divisions,
+districts.name as districts,
+personal_info.* 
+FROM `users`,address,divisions,districts,personal_info
+WHERE 
+users.gender = 'male' AND
+users.role = '1' AND
+users.status = '2' AND
+address.user_id = users.id AND
+divisions.id = address.p_division AND
+districts.id = address.p_disrict AND
+personal_info.user_id = users.id;
+
+ALTER TABLE personal_info add CONSTRAINT fk_user_personal_id 
+FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
