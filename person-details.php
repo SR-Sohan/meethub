@@ -10,6 +10,12 @@ use App\db;
 // $conn = db::connect();
 $db = new MysqliDb();
 $page = "Profile Details";
+$id = $_GET['id'];
+$db->where("id", $id);
+$db->where("role", "1");
+$db->where("status", "2");
+$user = $db->get("users");
+var_dump($user);
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
 
@@ -29,19 +35,15 @@ $page = "Profile Details";
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="image">
-                                        <img src="<?= settings()['homepage'] ?>assets/images/bridesmaid-img4-1.jpg" alt="" class="personal-image">
+                                        <img src="<?= settings()['homepage'] ?>assets/images/no-image.png" alt="" class="personal-image">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="pro-info">
                                         <ul class="user-details">
-                                            <li>Name: Kaniz Fatema</li>
-                                            <li>Age: 30</li>
-                                            <li>Height: 5'4</li>
-                                            <li>Blood Group: B+</li>
-                                            <li>Address: Dhanmondi, Dhaka</li>
-                                            <li>Phone: 0127398379</li>
-                                            <li>Email: kanizfatema@gmail.com</li>
+                                            <li>Name: <?= $user[0]['first_name'] ?> <?= $user[0]['last_name'] ?> </li>
+                                            <li>Phone: +880<?=$user[0]['phone'] ?></li>
+                                            <li>Email: <?=$user[0]['email'] ?></li>
                                         </ul>
                                     </div>
                                 </div>

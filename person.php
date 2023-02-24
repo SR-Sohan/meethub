@@ -63,7 +63,7 @@ $user = $db->get("users");
                                                 <p>Religion: Islam</p>
                                                 <p>Education: BA</p>
                                                 <p>Occupation: Student</p>
-                                                <a class="btn btn-outline-danger" href="">View Details</a>
+                                                <a class="btn btn-outline-danger" href="<?= settings()['homepage'] ?>person-details.php?id=<?= $user[$i]['id']?>">View Details</a>
                                             </div>
                                         </div>
                                     </div>
