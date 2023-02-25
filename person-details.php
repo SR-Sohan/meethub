@@ -169,8 +169,8 @@ $user = $db->get("users");
                         $.each(JSON.parse(data.responseText), function(key, value) {
                             html += `<tr>
                             <td class="text-uppercase">${value.exam}</td>
-                            <td>${value.board}</td>
-                            <td>${value.Institute}</td>
+                            <td class="text-capitalize">${value.board}</td>
+                            <td class="text-capitalize">${value.Institute}</td>
                             <td>${value.year}</td>
                             <td>${value.result}</td>
                             </tr>`
@@ -194,11 +194,11 @@ $user = $db->get("users");
                             $('#familyTable').empty();
                             $.each(JSON.parse(data.responseText), function(key, value) {
                                 html += `<tr>
-                            <td class="text-uppercase">${value.name}</td>
-                            <td>${value.relation}</td>
-                            <td>${value.profession}</td>
-                            <td>${value.status}</td>
-                            <td>${value.phone}</td>
+                            <td class="text-capitalize">${value.name}</td>
+                            <td class="text-capitalize">${value.relation}</td>
+                            <td class="text-capitalize">${value.profession}</td>
+                            <td class="text-capitalize">${value.status}</td>
+                            <td>+880${value.phone}</td>
                             </tr>`
                             })
                             $('#familyTable').append(html);
