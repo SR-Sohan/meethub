@@ -39,3 +39,6 @@ personal_info.user_id = users.id;
 
 ALTER TABLE personal_info add CONSTRAINT fk_user_personal_id 
 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+
+
+SELECT * FROM partner_preference WHERE user_id = 1;

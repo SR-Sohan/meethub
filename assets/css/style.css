@@ -27,6 +27,14 @@ ul,ol{
  .showHide{
   display: none;
  }
+ .address ul {
+  margin-left: 30px;
+
+ }
+ .address ul li {
+  font-size: 22px;
+  line-height: 44px;
+ }
 /* 
 ==================================
             Menubar CSS 

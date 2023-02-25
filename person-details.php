@@ -61,8 +61,14 @@ $user = $db->get("users");
                             <button id="family_infoBtn" class="tablinks" onclick="details(event,'family')">
                                 Family Info
                             </button>
-                            <button id="p_addressBtn" class="tablinks" onclick="details(event,'address')">
+                            <button id="pAddressBtn" class="tablinks" onclick="details(event,'pAddress')">
                                 Present Address
+                            </button>
+                            <button id="hAddressBtn" class="tablinks" onclick="details(event,'hAddress')">
+                                Home Address
+                            </button>
+                            <button id="preferenceBtn" class="tablinks" onclick="details(event,'preference')">
+                                Partner Preference
                             </button>
                         </div>
 
@@ -104,10 +110,24 @@ $user = $db->get("users");
 
                         </div>
 
-                        <div id="address" class="tabcontent">
-                            <h3>Address</h3>
-                            <p>Present Address: </p>
-                            <p>Home Address: </p>
+                        <div id="pAddress" class="tabcontent">
+                            <h3>Present Address:</h3>
+                            <div id="presentAddress" class="address">
+
+                            </div>
+                         
+                        </div>
+                        <div id="hAddress" class="tabcontent">
+                            <h3>Home Address:</h3>
+                            <div id="homeAddress" class="address">
+
+                            </div>
+                         
+                        </div>
+                        <div id="preference" class="tabcontent">
+                            <h3>Preference:</h3>
+                           
+                         
                         </div>
                     </div>
                 </div>
@@ -154,6 +174,37 @@ $user = $db->get("users");
 
         <script>
             $(document).ready(function() {
+
+
+                //Show Address
+                $("#hAddressBtn").click(function() {
+                    $.ajax({
+                        url: "person-details-class.php",
+                        method: "get",
+                        data: {
+                            h_id: <?= $id ?>,
+                            action: "search"
+                        },
+                        complete: function(d){
+                            $("#homeAddress").html(d.responseText)
+                           
+                        }
+                    })
+                })
+                $("#pAddressBtn").click(function() {
+                    $.ajax({
+                        url: "person-details-class.php",
+                        method: "get",
+                        data: {
+                            p_id: <?= $id ?>,
+                            action: "search"
+                        },
+                        complete: function(d){
+                            $("#presentAddress").html(d.responseText)
+                          
+                        }
+                    })
+                })
 
 
                 // Show Education Person Details
