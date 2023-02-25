@@ -15,7 +15,7 @@ $db->where("id", $id);
 $db->where("role", "1");
 $db->where("status", "2");
 $user = $db->get("users");
-var_dump($user);
+
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
 
@@ -42,8 +42,8 @@ var_dump($user);
                                     <div class="pro-info">
                                         <ul class="user-details">
                                             <li>Name: <?= $user[0]['first_name'] ?> <?= $user[0]['last_name'] ?> </li>
-                                            <li>Phone: +880<?=$user[0]['phone'] ?></li>
-                                            <li>Email: <?=$user[0]['email'] ?></li>
+                                            <li>Phone: +880<?= $user[0]['phone'] ?></li>
+                                            <li>Email: <?= $user[0]['email'] ?></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -55,39 +55,52 @@ var_dump($user);
                     </div>
                     <div class="bottom-content my-5 shadow-lg">
                         <div class="tab">
-                            <button class="tablinks active" onclick="details(event,'education')">
+                            <button id="educationBtn" data-id="" class="tablinks active" onclick="details(event,'education')">
                                 Education
                             </button>
-                            <button class="tablinks" onclick="details(event,'family')">
+                            <button id="family_infoBtn" class="tablinks" onclick="details(event,'family')">
                                 Family Info
                             </button>
-                            <button class="tablinks" onclick="details(event,'address')">
-                                Address
+                            <button id="p_addressBtn" class="tablinks" onclick="details(event,'address')">
+                                Present Address
                             </button>
                         </div>
 
                         <!-- Tab content -->
                         <div id="education" class="tabcontent" style="display: block;">
-                            <h3>Education</h3>
-                            <ul>
-                                <li>PSE: </li>
-                                <li>JSE: </li>
-                                <li>SSC: </li>
-                                <li>HSC: </li>
-                                <li>Honours: </li>
-                                <li>Masters: </li>
-                                <li>PHD: </li>
-                            </ul>
+                            <h3>Education:</h3>
+                            <table class="table table-danger table-striped w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Examination</th>
+                                        <th scope="col">Board</th>
+                                        <th scope="col">Institute</th>
+                                        <th scope="col">Year</th>
+                                        <th scope="col">Result</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="eduTable">
+
+
+                                </tbody>
+                            </table>
                         </div>
 
                         <div id="family" class="tabcontent">
-                            <h3>Family Info</h3>
-                            <ul>
-                                <li>Father's Name: </li>
-                                <li>Profession: </li>
-                                <li>Family Status: </li>
-                                <li>Phone No: </li>
-                            </ul>
+                            <h3>Family Info:</h3>
+                            <table class="table table-danger table-striped w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Relation</th>
+                                        <th scope="col">Profession</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Phone</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="familyTable">
+                                </tbody>
+                            </table>
 
                         </div>
 
@@ -115,7 +128,7 @@ var_dump($user);
                                 <img src="<?= settings()['homepage'] ?>assets/images/brides3.jpg" alt="">
                                 <h3><a href="">Susmita Singh</a></h3>
                             </div>
-                         
+
                         </div>
                         <div class="brides-sidebar">
                             <h3 class="sidebar-heading">Grooms</h3>
@@ -131,7 +144,7 @@ var_dump($user);
                                 <img src="<?= settings()['homepage'] ?>assets/images/groomsmen-img1-1.jpg" alt="">
                                 <h3><a href="">Susmita Singh</a></h3>
                             </div>
-                            
+
                         </div>
                     </aside>
                 </div>
@@ -140,6 +153,66 @@ var_dump($user);
         <!-- profile details area End -->
 
         <script>
+            $(document).ready(function() {
+
+
+                // Show Education Person Details
+                $.ajax({
+                    url: "person-details-class.php",
+                    method: "get",
+                    data: {
+                        e_id: <?= $id ?>,
+                        action: "search"
+                    },
+                    complete: function(data) {
+                        let html = ""
+                        $.each(JSON.parse(data.responseText), function(key, value) {
+                            html += `<tr>
+                            <td class="text-uppercase">${value.exam}</td>
+                            <td>${value.board}</td>
+                            <td>${value.Institute}</td>
+                            <td>${value.year}</td>
+                            <td>${value.result}</td>
+                            </tr>`
+                        })
+                        $('#eduTable').append(html);
+                    }
+                })
+
+                // Family info Btn click
+                $("#family_infoBtn").click(function() {
+                    // Show Education Person Details
+                    $.ajax({
+                        url: "person-details-class.php",
+                        method: "get",
+                        data: {
+                            f_id: <?= $id ?>,
+                            action: "search"
+                        },
+                        complete: function(data) {
+                            let html = "";
+                            $('#familyTable').empty();
+                            $.each(JSON.parse(data.responseText), function(key, value) {
+                                html += `<tr>
+                            <td class="text-uppercase">${value.name}</td>
+                            <td>${value.relation}</td>
+                            <td>${value.profession}</td>
+                            <td>${value.status}</td>
+                            <td>${value.phone}</td>
+                            </tr>`
+                            })
+                            $('#familyTable').append(html);
+                        }
+                    })
+                })
+            })
+
+
+
+
+
+
+
             function details(evt, cityName) {
                 // Declare all variables
                 var i, tabcontent, tablinks;
