@@ -2,9 +2,8 @@
 
 require __DIR__ . '/vendor/autoload.php';
 use App\db;
+$conn = db::connect();
 if(isset($_GET['e_id'])){
-    $conn = db::connect();
-
     $id = $_GET['e_id'];
     $q = "select * from educations where user_id = '".$id."'";
 
@@ -22,7 +21,6 @@ if(isset($_GET['e_id'])){
 }
 
 if(isset($_GET['f_id'])){
-    $conn = db::connect();
 
     $id = $_GET['f_id'];
     $q = "select * from family_info where user_id = '".$id."'";
@@ -41,7 +39,6 @@ if(isset($_GET['f_id'])){
 }
 
 if(isset($_GET['p_id'])){
-    $conn = db::connect();
     $q = "SELECT 
     address.p_country,
     divisions.name as hdivisions,
@@ -74,7 +71,7 @@ if(isset($_GET['p_id'])){
 
 }
 if(isset($_GET['h_id'])){
-    $conn = db::connect();
+  
     $q = "SELECT 
     home_address.country,
     divisions.name as hdivisions,
@@ -106,5 +103,29 @@ if(isset($_GET['h_id'])){
     }else echo "Not Set Preset Address";
 
 }
+
+if(isset($_GET['pre_id'])){
+
+    $q= "SELECT partner_preference.*, districts.name as dis FROM partner_preference,districts WHERE partner_preference.user_id = '".$_GET['pre_id']."' AND districts.id = partner_preference.district;";
+    $result= $conn->query($q);
+
+    if($result->num_rows){
+        $html = "<ul>";
+
+        while($row = $result->fetch_assoc()){
+            $html .= "<li class='text-capitalize'>Education: ".$row['education']."</li>";
+            $html .= "<li class='text-capitalize'>District: ".$row['dis']."</li>";
+            $html .= "<li class='text-capitalize'>Height: ".$row['height']."</li>";
+            $html .= "<li class='text-capitalize'>Dislike Habits: ".$row['dislike_habbit']."</li> <hr>";
+           
+        }
+        $html .= "</ul> ";
+        echo $html;
+    }else echo "Not Set Partner Preference";
+
+    
+
+}
+
 
 $conn->close();

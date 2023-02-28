@@ -12,12 +12,11 @@
                 <h1>Thomas</h1>
               </div>
               <ul class="fot-menu">
-                <li><a href="">Home</a></li>
-                <li><a href="">Home</a></li>
-                <li><a href="">Home</a></li>
-                <li><a href="">Home</a></li>
-                <li><a href="">Home</a></li>
-                <li><a href="">Home</a></li>
+                <li> <a class="nav-link " aria-current="page" href="<?= settings()['homepage'] ?>index.php">Home</a></li>
+                <li> <a class="nav-link" aria-current="page" href="<?= settings()['homepage'] ?>event.php">Event</a></li>
+                <li><a class="nav-link" aria-current="page" href="<?= settings()['homepage'] ?>person.php?person=brides">Brides</a></li>
+                <li> <a class="nav-link" aria-current="page" href="<?= settings()['homepage'] ?>person.php?person=grooms">Grooms</a></li>
+                <li> <a class="nav-link" aria-current="page" href="<?= settings()['homepage'] ?>contact.php">Contact</a></li>
               </ul>
             </div>
         </div>
@@ -25,7 +24,7 @@
     </div>
   </div>
   <div class="footer-bottom d-flex align-items-center justify-content-center">
-    <p class="text-center">© 2020 Nuptial. All Rights Reserved.</p>
+    <p class="text-center">© 2023 | ISDB-BISEW</p>
   </div>
 </footer>
 <!-- footer area End -->

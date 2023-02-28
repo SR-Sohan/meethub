@@ -41,10 +41,28 @@ ALTER TABLE personal_info add CONSTRAINT fk_user_personal_id
 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
-SELECT * FROM partner_preference WHERE user_id = 1;
 
 
 
 ALTER TABLE profile_pic
 add CONSTRAINT fk_user_id_profile_pic
 FOREIGN KEY profile_pic(user_id) REFERENCES users(id) on DELETE CASCADE;
+
+SELECT partner_preference.*, districts.name as dis FROM partner_preference,districts WHERE partner_preference.user_id = 1 AND districts.id = partner_preference.district;
+
+
+SELECT users.id, concat(users.first_name,' ',users.last_name) as name,
+divisions.name as divisions,
+districts.name as districts,
+personal_info.* ,
+profile_pic.name as img
+FROM `users`,address,divisions,districts,personal_info,profile_pic
+WHERE 
+users.gender = 'male' AND
+users.role = '1' AND
+users.status = '2' AND
+address.user_id = 9 AND
+profile_pic.user_id = users.id AND
+divisions.id = address.p_division AND
+districts.id = address.p_disrict AND
+personal_info.user_id = users.id;

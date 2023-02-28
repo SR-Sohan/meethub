@@ -17,16 +17,18 @@ $gender = $_GET['person'] == "brides" ? "female" : "male";
 $q = "SELECT users.id, concat(users.first_name,' ',users.last_name) as name,
 divisions.name as divisions,
 districts.name as districts,
-personal_info.* 
-FROM `users`,address,divisions,districts,personal_info
+personal_info.* ,
+profile_pic.name as img
+FROM `users`,address,divisions,districts,personal_info,profile_pic
 WHERE 
-users.gender = '".$gender."' AND
+users.gender = 'male' AND
 users.role = '1' AND
 users.status = '2' AND
 address.user_id = users.id AND
+profile_pic.user_id = users.id AND
 divisions.id = address.p_division AND
 districts.id = address.p_disrict AND
-personal_info.user_id = users.id";
+personal_info.user_id = users.id;";
 
 $result = $conn->query($q);
 
@@ -62,14 +64,14 @@ $result = $conn->query($q);
 
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-
+                            $img = $row['img'] ? "profile-image/".$row['img'] : "assets/images/no-image.png";
                     ?>
                             <div class="col-md-6">
                                 <div class="person-wrap px-3 py-5 shadow-lg">
                                     <div class="row ">
                                         <div class="col-md-5">
                                             <div class="person-img">
-                                                <img src="<?= settings()['homepage'] ?>assets/images/no-image.png" alt="">
+                                                <img class="rounded-circle" src="<?= settings()['homepage'].$img ?>" alt="">
                                             </div>
                                         </div>
                                         <div class="col-md-7">

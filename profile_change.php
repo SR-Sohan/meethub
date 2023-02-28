@@ -33,7 +33,7 @@ if (isset($_POST['upload'])) {
                 if ($pic) {
                     $msg = "Profile Pic Uploaded";
                     $loc = settings()['homepage'] . "profile.php";
-                    header("location:" . $loc);
+                    header("location:".$loc);
                 } else {
                     $msg = "Profile Pic Uploaded Failed";
                 }
@@ -57,7 +57,7 @@ if (isset($_POST['upload'])) {
                 if ($pic) {
                     $msg = "Profile Pic Uploaded";
                     $loc = settings()['homepage'] . "profile.php";
-                    header("location:" . $loc);
+                    header("location:".$loc);
                 } else {
                     $msg = "Profile Pic Uploaded Failed";
                 }
@@ -83,9 +83,15 @@ if (isset($_POST['upload'])) {
                     <h3 class="mb-5">Change Profile Picture</h3>
                     <h2><?= $msg ?? "" ?></h2>
                     <div id="imgPreview">
+                        <?php 
+                        $db->where("user_id", $id);
+                        $pic = $db->getOne("profile_pic");
+                        if(isset($pic)){
 
+                            echo "<img width='50%' src='".settings()['homepage'].'profile-image/'.$pic['name']."' />";
+                        } ?>
                     </div>
-                    <div class="file-input">
+                    <div class="file-input mt-3">
                         <input type="hidden" name="id" value="<?= $id ?>">
                         <input type="file" name="file" id="photo" class="file-input__input" />
                         <label class="file-input__label" for="photo">

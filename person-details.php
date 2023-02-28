@@ -17,13 +17,25 @@ $db->where("role", "1");
 $db->where("status", "2");
 $user = $db->get("users");
 
+$db->where("user_id",$id);
+$img = $db->getOne("profile_pic");
+
+$imgUrl = '';
+
+if(isset($img)){
+    $imgUrl = "profile-image/".$img['name'];
+}else{
+    $imgUrl = "assets/images/no-image.png";
+}
+
+
 // For Male Query
-$q = "select users.id, concat(users.first_name,' ',users.last_name) as name from users where role = '1' and gender = 'male'";
+$q = "select users.id, concat(users.first_name,' ',users.last_name) as name,profile_pic.name as img  from users,profile_pic where role = '1' and gender = 'male' and profile_pic.user_id = users.id";
 $result = $conn->query($q);
 
 
 // For FeMale Query
-$qury = "select users.id, concat(users.first_name, ' ', users.last_name) as name from users where role = '1' and gender ='female'";
+$qury = "select users.id, concat(users.first_name,' ',users.last_name) as name,profile_pic.name as img  from users,profile_pic where role = '1' and gender = 'female' and profile_pic.user_id = users.id";
 $res = $conn->query($qury)
 
 ?>
@@ -39,16 +51,16 @@ $res = $conn->query($qury)
     <div class="profile-details">
         <div class="container ">
             <div class="row ">
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <div class="main-content">
                         <div class="top-content bg-white p-3 rounded-4 shadow-lg">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="image">
-                                        <img src="<?= settings()['homepage'] ?>assets/images/no-image.png" alt="" class="personal-image">
+                                        <img src="<?= settings()['homepage'].$imgUrl?>" alt="" class="personal-image rounded-3">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <div class="pro-info">
                                         <ul class="user-details">
                                             <li>Name: <?= $user[0]['first_name'] ?> <?= $user[0]['last_name'] ?> </li>
@@ -136,23 +148,25 @@ $res = $conn->query($qury)
                         </div>
                         <div id="preference" class="tabcontent">
                             <h3>Preference:</h3>
+                            <div id="partnerPrefernce" class="address">
 
-
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <aside>
                         <div class="brides-sidebar">
                             <h3 class="sidebar-heading">Brides</h3>
                             <?php
                             if ($res->num_rows) {
                                 while ($rw = $res->fetch_assoc()) {
+                                    $img = $row['img'] ? "profile-image/".$row['img'] : "assets/images/no-image.png";
 
                             ?>
                                     <div class="single-item d-flex align-items-center my-3 bg-white p-3 shadow-lg rounded-2">
-                                        <img src="<?= settings()['homepage'] ?>assets/images/no-image.png" alt="">
+                                        <img src="<?= settings()['homepage'].$img?>" alt="">
                                         <h3><a href="<?= settings()['homepage'] ?>person-details.php?id=<?= $rw['id'] ?>"><?= $rw['name'] ?></a></h3>
                                     </div>
                             <?php
@@ -168,9 +182,11 @@ $res = $conn->query($qury)
                             if ($result->num_rows) {
                                 while ($row = $result->fetch_assoc()) {
 
+                                    $img = $row['img'] ? "profile-image/".$row['img'] : "assets/images/no-image.png";
+
                             ?>
                                     <div class="single-item d-flex align-items-center my-3 bg-white p-3 shadow-lg rounded-2">
-                                        <img src="<?= settings()['homepage'] ?>assets/images/no-image.png" alt="">
+                                        <img src="<?= settings()['homepage'].$img?>" alt="">
                                         <h3><a href="<?= settings()['homepage'] ?>person-details.php?id=<?= $row['id'] ?>"><?= $row['name'] ?></a></h3>
                                     </div>
                             <?php
@@ -190,6 +206,21 @@ $res = $conn->query($qury)
         <script>
             $(document).ready(function() {
 
+                // Show Preference
+                $("#preferenceBtn").click(function(){
+                    $.ajax({
+                        url:"person-details-class.php",
+                        method:"get",
+                        data:{
+                          pre_id: <?= $id ?>  
+                        },
+                        complete: function(d){
+                            $('#partnerPrefernce').html(d.responseText);
+                          
+                        }
+                    })
+
+                });
 
                 //Show Address
                 $("#hAddressBtn").click(function() {
