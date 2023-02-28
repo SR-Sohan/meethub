@@ -2,13 +2,19 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+$db = new MysqliDb();
+$id = $_SESSION['userid'];
+$db->where("user_id", $id);
+$pic = $db->getOne("profile_pic");
 
+
+$img = isset($pic) ? settings()['homepage']."profile-image/".$pic['name'] : settings()['homepage']."assets/images/no-image.png";
 ?>
 
 <div class="col-md-3">
     <div class="profile-sidebar text-white">
         <div class="profile-img">
-            <img src="<?= settings()['homepage'] ?>assets/images/no-image.png" alt="">
+            <img src="<?= $img ?>" alt="">
             <a href="<?= settings()['homepage'] ?>profile_change.php?id=<?=$_SESSION['userid']??''?>">Change Profile Picture</a>
         </div>
         <h2 class="my-3">  <?php echo $_SESSION['fname']." ".$_SESSION['lname']??'' ?></h2>

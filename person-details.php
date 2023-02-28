@@ -7,7 +7,8 @@ require __DIR__ . '/vendor/autoload.php';
 use App\User;
 use App\model\Category;
 use App\db;
-// $conn = db::connect();
+
+$conn = db::connect();
 $db = new MysqliDb();
 $page = "Profile Details";
 $id = $_GET['id'];
@@ -15,6 +16,15 @@ $db->where("id", $id);
 $db->where("role", "1");
 $db->where("status", "2");
 $user = $db->get("users");
+
+// For Male Query
+$q = "select users.id, concat(users.first_name,' ',users.last_name) as name from users where role = '1' and gender = 'male'";
+$result = $conn->query($q);
+
+
+// For FeMale Query
+$qury = "select users.id, concat(users.first_name, ' ', users.last_name) as name from users where role = '1' and gender ='female'";
+$res = $conn->query($qury)
 
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
@@ -115,19 +125,19 @@ $user = $db->get("users");
                             <div id="presentAddress" class="address">
 
                             </div>
-                         
+
                         </div>
                         <div id="hAddress" class="tabcontent">
                             <h3>Home Address:</h3>
                             <div id="homeAddress" class="address">
 
                             </div>
-                         
+
                         </div>
                         <div id="preference" class="tabcontent">
                             <h3>Preference:</h3>
-                           
-                         
+
+
                         </div>
                     </div>
                 </div>
@@ -136,34 +146,39 @@ $user = $db->get("users");
                     <aside>
                         <div class="brides-sidebar">
                             <h3 class="sidebar-heading">Brides</h3>
-                            <div class="single-item d-flex align-items-center my-3 bg-white p-3 shadow-lg rounded-2">
-                                <img src="<?= settings()['homepage'] ?>assets/images/brides3.jpg" alt="">
-                                <h3><a href="">Susmita Singh</a></h3>
-                            </div>
-                            <div class="single-item d-flex align-items-center my-3 bg-white p-3 shadow-lg rounded-2">
-                                <img src="<?= settings()['homepage'] ?>assets/images/brides3.jpg" alt="">
-                                <h3><a href="">Susmita Singh</a></h3>
-                            </div>
-                            <div class="single-item d-flex align-items-center my-3 bg-white p-3 shadow-lg rounded-2">
-                                <img src="<?= settings()['homepage'] ?>assets/images/brides3.jpg" alt="">
-                                <h3><a href="">Susmita Singh</a></h3>
-                            </div>
+                            <?php
+                            if ($res->num_rows) {
+                                while ($rw = $res->fetch_assoc()) {
+
+                            ?>
+                                    <div class="single-item d-flex align-items-center my-3 bg-white p-3 shadow-lg rounded-2">
+                                        <img src="<?= settings()['homepage'] ?>assets/images/no-image.png" alt="">
+                                        <h3><a href="<?= settings()['homepage'] ?>person-details.php?id=<?= $rw['id'] ?>"><?= $rw['name'] ?></a></h3>
+                                    </div>
+                            <?php
+
+                                }
+                            }
+                            ?>
 
                         </div>
                         <div class="brides-sidebar">
                             <h3 class="sidebar-heading">Grooms</h3>
-                            <div class="single-item d-flex align-items-center my-3 bg-white p-3 shadow-lg rounded-2">
-                                <img src="<?= settings()['homepage'] ?>assets/images/groomsmen-img1-1.jpg" alt="">
-                                <h3><a href="">Susmita Singh</a></h3>
-                            </div>
-                            <div class="single-item d-flex align-items-center my-3 bg-white p-3 shadow-lg rounded-2">
-                                <img src="<?= settings()['homepage'] ?>assets/images/groomsmen-img1-1.jpg" alt="">
-                                <h3><a href="">Susmita Singh</a></h3>
-                            </div>
-                            <div class="single-item d-flex align-items-center my-3 bg-white p-3 shadow-lg rounded-2">
-                                <img src="<?= settings()['homepage'] ?>assets/images/groomsmen-img1-1.jpg" alt="">
-                                <h3><a href="">Susmita Singh</a></h3>
-                            </div>
+                            <?php
+                            if ($result->num_rows) {
+                                while ($row = $result->fetch_assoc()) {
+
+                            ?>
+                                    <div class="single-item d-flex align-items-center my-3 bg-white p-3 shadow-lg rounded-2">
+                                        <img src="<?= settings()['homepage'] ?>assets/images/no-image.png" alt="">
+                                        <h3><a href="<?= settings()['homepage'] ?>person-details.php?id=<?= $row['id'] ?>"><?= $row['name'] ?></a></h3>
+                                    </div>
+                            <?php
+
+                                }
+                            }
+                            ?>
+
 
                         </div>
                     </aside>
@@ -185,9 +200,9 @@ $user = $db->get("users");
                             h_id: <?= $id ?>,
                             action: "search"
                         },
-                        complete: function(d){
+                        complete: function(d) {
                             $("#homeAddress").html(d.responseText)
-                           
+
                         }
                     })
                 })
@@ -199,9 +214,9 @@ $user = $db->get("users");
                             p_id: <?= $id ?>,
                             action: "search"
                         },
-                        complete: function(d){
+                        complete: function(d) {
                             $("#presentAddress").html(d.responseText)
-                          
+
                         }
                     })
                 })

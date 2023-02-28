@@ -42,3 +42,9 @@ FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 SELECT * FROM partner_preference WHERE user_id = 1;
+
+
+
+ALTER TABLE profile_pic
+add CONSTRAINT fk_user_id_profile_pic
+FOREIGN KEY profile_pic(user_id) REFERENCES users(id) on DELETE CASCADE;

@@ -15,7 +15,6 @@ $id = $_SESSION['userid'];
 $db->where("id", $id);
 $row = $db->getOne("users");
 
-
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
 
