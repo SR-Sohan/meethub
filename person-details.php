@@ -12,19 +12,35 @@ $conn = db::connect();
 $db = new MysqliDb();
 $page = "Profile Details";
 $id = $_GET['id'];
-$db->where("id", $id);
-$db->where("role", "1");
-$db->where("status", "2");
-$user = $db->get("users");
+// $db->where("id", $id);
+// $db->where("role", "1");
+// $db->where("status", "2");
+// $user = $db->get("users");
 
-$db->where("user_id",$id);
-$img = $db->getOne("profile_pic");
+$qq = "SELECT users.id, concat(users.first_name,' ',users.last_name) as name,
+users.phone,
+personal_info.* ,
+profile_pic.name as img
+FROM `users`,personal_info,profile_pic
+WHERE 
+users.id = '".$id."' AND
+users.gender = 'male' AND
+users.role = '1' AND
+users.status = '2' AND
+profile_pic.user_id = '".$id."' AND
+personal_info.user_id = '".$id."';";
+
+$result2 = $conn->query($qq)->fetch_assoc();
+
+
+$db->where("user_id", $id);
+$social=$db->get("social");
 
 $imgUrl = '';
 
-if(isset($img)){
-    $imgUrl = "profile-image/".$img['name'];
-}else{
+if (isset($result2['img'])) {
+    $imgUrl = "profile-image/" . $result2['img'];
+} else {
     $imgUrl = "assets/images/no-image.png";
 }
 
@@ -57,15 +73,38 @@ $res = $conn->query($qury)
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="image">
-                                        <img src="<?= settings()['homepage'].$imgUrl?>" alt="" class="personal-image rounded-3">
+                                        <img src="<?= settings()['homepage'] . $imgUrl ?>" alt="" class="personal-image rounded-3">
                                     </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="pro-info">
                                         <ul class="user-details">
-                                            <li>Name: <?= $user[0]['first_name'] ?> <?= $user[0]['last_name'] ?> </li>
-                                            <li>Phone: +880<?= $user[0]['phone'] ?></li>
-                                            <li>Email: <?= $user[0]['email'] ?></li>
+                                            <li>Name: <?= $result2['name']??'' ?> </li>
+                                            <li>Height: <?= $result2['height'].'"'??'' ?></li>
+                                            <li>Weight: <?= $result2['weight'].'Kg'??'' ?></li>
+                                            <li>Skin Color: <?= $result2['skin_color']??'' ?></li>
+                                            <li>Religion: <?= $result2['religion']??'' ?></li>
+                                            <li>Blood Group: <?= $result2['blood_group']??'' ?></li>
+                                            <li>Hobby: <?= $result2['hobby']??'' ?></li>
+                                            <li>Income: <?= "$".$result2['salary']??'' ?></li>
+                                            <li>Phone: +880<?= $result2['phone']??'' ?></li>
+                                        </ul>
+                                    </div>
+                                    <div class="social-info">
+                                   
+                                        <ul class="social-link sl-2 text-center">
+                                            <?php
+                                            if (isset($social)) {
+
+                                                foreach ($social as $key => $value) {
+
+                                            ?>
+
+                                                    <li><a href="<?= $value['link'] ?>" target="_blank"><i class="fa-brands fa-<?= $value['name'] ?>"></i></a></li>
+
+                                            <?php }
+                                            } ?>
+
                                         </ul>
                                     </div>
                                 </div>
@@ -162,11 +201,11 @@ $res = $conn->query($qury)
                             <?php
                             if ($res->num_rows) {
                                 while ($rw = $res->fetch_assoc()) {
-                                    $img = $row['img'] ? "profile-image/".$row['img'] : "assets/images/no-image.png";
+                                    $img = $row['img'] ? "profile-image/" . $row['img'] : "assets/images/no-image.png";
 
                             ?>
                                     <div class="single-item d-flex align-items-center my-3 bg-white p-3 shadow-lg rounded-2">
-                                        <img src="<?= settings()['homepage'].$img?>" alt="">
+                                        <img src="<?= settings()['homepage'] . $img ?>" alt="">
                                         <h3><a href="<?= settings()['homepage'] ?>person-details.php?id=<?= $rw['id'] ?>"><?= $rw['name'] ?></a></h3>
                                     </div>
                             <?php
@@ -182,11 +221,11 @@ $res = $conn->query($qury)
                             if ($result->num_rows) {
                                 while ($row = $result->fetch_assoc()) {
 
-                                    $img = $row['img'] ? "profile-image/".$row['img'] : "assets/images/no-image.png";
+                                    $img = $row['img'] ? "profile-image/" . $row['img'] : "assets/images/no-image.png";
 
                             ?>
                                     <div class="single-item d-flex align-items-center my-3 bg-white p-3 shadow-lg rounded-2">
-                                        <img src="<?= settings()['homepage'].$img?>" alt="">
+                                        <img src="<?= settings()['homepage'] . $img ?>" alt="">
                                         <h3><a href="<?= settings()['homepage'] ?>person-details.php?id=<?= $row['id'] ?>"><?= $row['name'] ?></a></h3>
                                     </div>
                             <?php
@@ -207,16 +246,16 @@ $res = $conn->query($qury)
             $(document).ready(function() {
 
                 // Show Preference
-                $("#preferenceBtn").click(function(){
+                $("#preferenceBtn").click(function() {
                     $.ajax({
-                        url:"person-details-class.php",
-                        method:"get",
-                        data:{
-                          pre_id: <?= $id ?>  
+                        url: "person-details-class.php",
+                        method: "get",
+                        data: {
+                            pre_id: <?= $id ?>
                         },
-                        complete: function(d){
+                        complete: function(d) {
                             $('#partnerPrefernce').html(d.responseText);
-                          
+
                         }
                     })
 

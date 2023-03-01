@@ -28,7 +28,7 @@ address.user_id = users.id AND
 profile_pic.user_id = users.id AND
 divisions.id = address.p_division AND
 districts.id = address.p_disrict AND
-personal_info.user_id = users.id;";
+personal_info.user_id = users.id";
 
 $result = $conn->query($q);
 

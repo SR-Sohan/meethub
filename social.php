@@ -56,9 +56,9 @@ if (isset($_POST['add'])) {
                                     <option value="facebook">Facebook</option>
                                     <option value="twitter">Twitter</option>
                                     <option value="instagram">Instagram</option>
-                                    <option value="linkdin">Linkdin</option>
+                                    <option value="linkedin">Linkdin</option>
                                     <option value="github">Github</option>
-                                    <option value="what's app">What's App</option>
+                                    <option value="whatsapp">What's App</option>
                                 </select>
                             </div>
                             <div class="mb-3">
