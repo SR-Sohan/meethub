@@ -36,23 +36,31 @@ if (session_status() === PHP_SESSION_NONE) {
 
             <?php
             if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == 'true') {
-           
+
             ?>
 
-            <div class="dropdown">
-                <button class=" drop-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <?= $_SESSION['fname']??'' ?>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="<?= settings()['homepage'] ?>profile.php">Profile</a></li>
-                    <li><a class="dropdown-item" href="<?= settings()['homepage'] ?>logout.php">Log Out</a></li>
-                </ul>
-            </div>
-                <?php  }else{ ?>
-            <div class="menu-auth d-flex align-items-center">
-                <a href="<?= settings()['homepage'] ?>login.php">Login</a>
-                <a href="<?= settings()['homepage'] ?>registration.php">Registration</a>
-            </div>
+                <div class="dropdown">
+                    <button class=" drop-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?= $_SESSION['fname'] ?? '' ?>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <?php
+
+                        if ($_SESSION['role'] == '2') {
+                        ?>
+                            <li><a class="dropdown-item" href="<?= settings()['homepage'] ?>admin/">Dashboard</a></li>
+                        <?php  } else { ?>
+                            <li><a class="dropdown-item" href="<?= settings()['homepage'] ?>profile.php">Profile</a></li>
+                        <?php } ?>
+
+                        <li><a class="dropdown-item" href="<?= settings()['homepage'] ?>logout.php">Log Out</a></li>
+                    </ul>
+                </div>
+            <?php  } else { ?>
+                <div class="menu-auth d-flex align-items-center">
+                    <a href="<?= settings()['homepage'] ?>login.php">Login</a>
+                    <a href="<?= settings()['homepage'] ?>registration.php">Registration</a>
+                </div>
             <?php } ?>
 
         </div>
