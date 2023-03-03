@@ -21,7 +21,7 @@ personal_info.* ,
 profile_pic.name as img
 FROM `users`,address,divisions,districts,personal_info,profile_pic
 WHERE 
-users.gender = 'male' AND
+users.gender = $gender AND
 users.role = '1' AND
 users.status = '2' AND
 address.user_id = users.id AND

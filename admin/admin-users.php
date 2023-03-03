@@ -13,7 +13,6 @@ if (!Admin::Check()) {
 
 $db = new MysqliDb();
 $page = "All Users";
-
 $db->where("role", '1');
 $users = $db->get("users");
 ?>
@@ -68,12 +67,10 @@ $users = $db->get("users");
                                                 <option <?= $value['status'] == "2" ? 'selected' : '' ?> value="2">Active</option>
                                                 <option <?= $value['status'] == "1" ? 'selected' : '' ?> value="1">Inactive</option>
                                             </select>
-
-
                                         </td>
                                         <td>
                                             <a class="btn btn-outline-primary" href="">View</a>
-                                            <a class="btn btn-outline-danger" href="">Delete</a>
+                                            <a  data-id="<?= $value['id'] ?>" class="btn btn-outline-danger deleteUsers" href="javascript:void(0)">Delete</a>
                                         </td>
                                     </tr>
 
@@ -93,7 +90,29 @@ $users = $db->get("users");
         <script>
              
             $(document).ready(function(){
-               
+                // Delete users
+                $(".deleteUsers").click(function(){
+                    let btn = $(this);
+                    var id = $(this).data('id');
+                    // $(this).parent().parent().remove();
+
+                    $.ajax({
+                        url:"admin-ajax.php",
+                        method:"post",
+                        data:{
+                            did: id
+                        },
+                        complete:function(d){
+                            if(d.responseText){
+                                btn.parent().parent().remove();
+                                alert(d.responseText);
+                            }else{
+                                alert(d.responseText);
+                            }
+                        }
+                    })
+                })
+               //Status Change 
                 $(".status").change(function(){
                     let val = $(this).val();
                     var id = $(this).data('id');
@@ -106,7 +125,7 @@ $users = $db->get("users");
                             val: val
                         },
                         complete:function(d){
-                            console.log(d.responseText);
+                            alert(d.responseText);
                         }
                     })
                 })

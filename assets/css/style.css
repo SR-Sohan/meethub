@@ -35,6 +35,8 @@ ul,ol{
   font-size: 22px;
   line-height: 44px;
  }
+
+
 /* 
 ==================================
             Menubar CSS 
@@ -148,7 +150,25 @@ ul,ol{
    color: #585858;
    margin-top: 50px;
  }
-
+ .slick-prev:before, .slick-next:before{
+  color:red;
+}
+.newperson-title{
+  color: #e72f59;
+  font-size: 28px;
+  font-weight: 700;
+  position: relative;
+  margin-bottom: 50px;
+}
+.newperson-title::after{
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 30%;
+  background-color: #e72f59;
+}
  
 /* 
 ==================================
