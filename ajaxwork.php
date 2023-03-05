@@ -34,3 +34,25 @@ if(isset($_POST['dis_id'])){
     }
 
 }
+
+
+//insert message
+
+if(isset($_POST['msg_id'])){
+    $id = $_POST['msg_id'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $subject = $_POST['subject'];
+    $phone = $_POST['phone'];
+    $message = $_POST['message'];
+
+    $q = "insert into message values(null,'".$id."','".$name."','".$email."','".$subject."','".$message."','".$phone."','1',null)";
+
+    $conn->query($q);
+
+    if($conn->affected_rows){
+        echo "Message Sent";
+    }else{
+        echo "Message Not Sent";
+    }
+}

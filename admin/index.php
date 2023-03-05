@@ -8,6 +8,14 @@ if(!Admin::Check()){
     header('HTTP/1.1 503 Service Unavailable');
     exit;
 }
+
+$db = new MysqliDb();
+
+$db->where('gender','male');
+$db->orderBy ("users.id","desc");
+$male = $db->get("users")
+
+
 ?>
 <?php require __DIR__.'/components/header.php'; ?>
 
@@ -27,7 +35,7 @@ if(!Admin::Check()){
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
+                                    <div class="card-body">Total Grooms</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>

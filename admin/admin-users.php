@@ -10,12 +10,13 @@ if (!Admin::Check()) {
     header('HTTP/1.1 503 Service Unavailable');
     exit;
 }
+$page = "Users";
 
-$db = new MysqliDb();
-$page = "All Users";
-$db->where("role", '1');
-$db->orderBy ("users.id","desc");
-$users = $db->get("users");
+// $db = new MysqliDb();
+// $page = "All Users";
+// $db->where("role", '1');
+// $db->orderBy ("users.id","desc");
+// $users = $db->get("users");
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
 
@@ -33,7 +34,17 @@ $users = $db->get("users");
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Users</li>
                     </ol>
-
+                    <label for="filterUser">Filter Users</label>
+                    <select id="filterUser" class="form-select" aria-label="Default select example">
+                        <option selected>Filter Users</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="2">Active Users</option>
+                        <option value="1">Inactive Users</option>
+                        <option value="unmarried">Unmarried Users</option>
+                        <option value="divorced">Divorced Users</option>
+                        <option value="widow">Widow Users</option>
+                    </select>
                     <table class="table">
                         <thead>
                             <tr>
@@ -42,44 +53,13 @@ $users = $db->get("users");
                                 <th scope="col">Last Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Phone</th>
+                                <th scope="col">Marital Status</th>
                                 <th scope="col">Gender</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-
-                            <?php
-
-                            if (isset($users)) {
-                                foreach ($users as $key => $value) {
-                                    static $sl = 1;
-                            ?>
-                                    <tr>
-                                        <th scope="row"><?= $sl ?></th>
-                                        <td class="text-capitalize"><?= $value['first_name'] ?></td>
-                                        <td class="text-capitalize"><?= $value['last_name'] ?></td>
-                                        <td><?= $value['email'] ?></td>
-                                        <td>+880<?= $value['phone'] ?></td>
-                                        <td class="text-capitalize"><?= $value['gender'] ?></td>
-                                        <td>
-                                             
-                                            <select  data-id="<?= $value['id'] ?>" class="status form-select form-select-lg mb-3" aria-label=".form-select-lg example">   
-                                                <option <?= $value['status'] == "2" ? 'selected' : '' ?> value="2">Active</option>
-                                                <option <?= $value['status'] == "1" ? 'selected' : '' ?> value="1">Inactive</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-outline-primary" href="">View</a>
-                                            <a  data-id="<?= $value['id'] ?>" class="btn btn-outline-danger deleteUsers" href="javascript:void(0)">Delete</a>
-                                        </td>
-                                    </tr>
-
-                            <?php
-                                    $sl++;
-                                }
-                            } ?>
-
+                        <tbody id="userBody">
                         </tbody>
                     </table>
 
@@ -88,51 +68,80 @@ $users = $db->get("users");
             </main>
             <!-- footer -->
             <?php require __DIR__ . '/components/footer.php'; ?>
-        <script>
-             
-            $(document).ready(function(){
-                // Delete users
-                $(".deleteUsers").click(function(){
-                    let btn = $(this);
-                    var id = $(this).data('id');
-                    // $(this).parent().parent().remove();
+            <script>
+                $(document).ready(function() {
 
-                    $.ajax({
-                        url:"admin-ajax.php",
-                        method:"post",
-                        data:{
-                            did: id
-                        },
-                        complete:function(d){
-                            if(d.responseText){
-                                btn.parent().parent().remove();
-                                alert(d.responseText);
-                            }else{
-                                alert(d.responseText);
+                    // Filter Users
+
+                    $("#filterUser").change(function(){
+                        let val = $(this).val();
+                        $.ajax({
+                            url: "admin-ajax.php",
+                            method: "get",
+                            data:{
+                                filter: val
+                            },
+                            complete: function(d){
+                                $("#userBody").html(JSON.parse(d.responseText));
                             }
-                        }
+                        })
                     })
-                })
-               //Status Change 
-                $(".status").change(function(){
-                    let val = $(this).val();
-                    var id = $(this).data('id');
-                   
+
+                    //Load Users
                     $.ajax({
                         url: "admin-ajax.php",
-                        method: "post",
-                        data:{
-                            uid: id,
-                            val: val
+                        method: "get",
+                        data: {
+                            all: "all"
                         },
-                        complete:function(d){
-                            alert(d.responseText);
+                        complete: function(d) {
+                            $("#userBody").html(JSON.parse(d.responseText));
                         }
                     })
-                })
-            });
 
-            // $(function(){
 
-            // })
-        </script>
+                    // Delete users
+                    $("#userBody").on('click', '.deleteUsers', function() {
+                        let btn = $(this);
+                        var id = $(this).data('id');
+                        // $(this).parent().parent().remove();
+
+                        $.ajax({
+                            url: "admin-ajax.php",
+                            method: "post",
+                            data: {
+                                did: id
+                            },
+                            complete: function(d) {
+                                if (d.responseText) {
+                                    btn.parent().parent().remove();
+                                    alert(d.responseText);
+                                } else {
+                                    alert(d.responseText);
+                                }
+                            }
+                        })
+                    })
+                    //Status Change 
+                    $("#userBody").on('change', '.status', function() {
+
+                        let val = $(this).val();
+                        var id = $(this).data('id');
+                        $.ajax({
+                            url: "admin-ajax.php",
+                            method: "post",
+                            data: {
+                                uid: id,
+                                val: val
+                            },
+                            complete: function(d) {
+                                alert(d.responseText);
+                            }
+                        })
+                    })
+                });
+
+                // $(function(){
+
+                // })
+            </script>

@@ -51,7 +51,8 @@ if (isset($_POST['upload'])) {
             if (move_uploaded_file($photo["tmp_name"], 'profile-image/' . $name)) {
                 $data = array(
                     "user_id" => $uid,
-                    "name" => $name
+                    "name" => $name,
+                    "pic_show" => 1
                 );
                 $pic = $db->insert('profile_pic', $data);
                 if ($pic) {

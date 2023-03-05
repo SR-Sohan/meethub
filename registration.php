@@ -6,23 +6,23 @@ if (isset($_POST['reg'])) {
   $db = new MysqliDb();
 
   //Store Data in Array
-    $data = [
-      'first_name' => $db->escape($_POST['fname']),
-      'last_name' => $db->escape($_POST['lname']),
-      'phone' => $db->escape($_POST['phone']),
-      'email' => $db->escape($_POST['email']),
-      'gender' => $db->escape($_POST['gender']),
-      'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
-      'role' => "1",
-      'status' => "1",
-    ];
+  $data = [
+    'first_name' => $db->escape($_POST['fname']),
+    'last_name' => $db->escape($_POST['lname']),
+    'phone' => $db->escape($_POST['phone']),
+    'email' => $db->escape($_POST['email']),
+    'gender' => $db->escape($_POST['gender']),
+    'marital_status' => $db->escape($_POST['marital']),
+    'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
+    'role' => "1",
+    'status' => "1",
+  ];
 
-    if ($db->insert("users", $data)) {
-      header("location:login.php");
-    } else {
-      $message = "Regitration failed!!";
-    }
-  
+  if ($db->insert("users", $data)) {
+    header("location:login.php");
+  } else {
+    $message = "Regitration failed!!";
+  }
 }
 ?>
 
@@ -36,7 +36,7 @@ if (isset($_POST['reg'])) {
   <div class="container">
     <form class="common-form shadow-lg" method="post">
       <h1>Registration Form</h1>
-      <h2><?=$message??''?></h2>
+      <h2><?= $message ?? '' ?></h2>
       <hr>
       <br>
       <br>
@@ -66,14 +66,21 @@ if (isset($_POST['reg'])) {
       </div>
 
       <div class="mb-3">
-          <label for="gender">Gender: </label>
-          <input type="radio" name="gender" id="male" value="male">
-          <label for="male">Male</label>
-          <input type="radio" name="gender" id="female" value="female">
-          <label for="female">Female</label>
+        <label for="gender">Gender: </label>
+        <input type="radio" name="gender" id="male" value="male">
+        <label for="male">Male</label>
+        <input type="radio" name="gender" id="female" value="female">
+        <label for="female">Female</label>
+      </div>
+      <div class="mb-3">
+        <select class="form-select" name="marital" aria-label="Default select example">
+          <option selected>Select Marital Status</option>
+          <option value="unmarried">Unmarried</option>
+          <option value="divorced">Divorced</option>
+          <option value="widow">Widow</option>
+        </select>
       </div>
 
-      
 
       <button type="submit" name="reg" class="form-btn">Sign Up</button>
     </form>
