@@ -21,14 +21,14 @@ personal_info.* ,
 profile_pic.name as img
 FROM `users`,address,divisions,districts,personal_info,profile_pic
 WHERE 
-users.gender = $gender AND
+users.gender = '$gender' and 
 users.role = '1' AND
 users.status = '2' AND
 address.user_id = users.id AND
 profile_pic.user_id = users.id AND
 divisions.id = address.p_division AND
 districts.id = address.p_disrict AND
-personal_info.user_id = users.id";
+personal_info.user_id = users.id order by users.id DESC";
 
 $result = $conn->query($q);
 
@@ -56,22 +56,22 @@ $result = $conn->query($q);
     <div id="brides-area">
         <div class="container my-5">
             <div class="event-heading text-center my-4">
-                <h1 class="mb-5">Your preferable Partner</h1>
+                <h1 data-aos="fade-down" data-aos-duration="1000" class="mb-5">Your preferable Partner</h1>
             </div>
             <div class="person-wrapper">
-                <div class="row">
+                <div class="row g-3">
                     <?php
 
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             $img = $row['img'] ? "profile-image/".$row['img'] : "assets/images/no-image.png";
                     ?>
-                            <div class="col-md-6">
+                            <div data-aos="fade-up" data-aos-duration="1000" class="col-md-6">
                                 <div class="person-wrap px-3 py-5 shadow-lg">
                                     <div class="row ">
                                         <div class="col-md-5">
                                             <div class="person-img">
-                                                <img class="rounded-circle" src="<?= settings()['homepage'].$img ?>" alt="">
+                                                <img  class="rounded-circle" src="<?= settings()['homepage'].$img ?>" alt="">
                                             </div>
                                         </div>
                                         <div class="col-md-7">

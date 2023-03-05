@@ -23,18 +23,18 @@ personal_info.* ,
 profile_pic.name as img
 FROM `users`,personal_info,profile_pic
 WHERE 
-users.id = '".$id."' AND
+users.id = '" . $id . "' AND
 users.gender = 'male' AND
 users.role = '1' AND
 users.status = '2' AND
-profile_pic.user_id = '".$id."' AND
-personal_info.user_id = '".$id."';";
+profile_pic.user_id = '" . $id . "' AND
+personal_info.user_id = '" . $id . "';";
 
 $result2 = $conn->query($qq)->fetch_assoc();
 
 
 $db->where("user_id", $id);
-$social=$db->get("social");
+$social = $db->get("social");
 
 $imgUrl = '';
 
@@ -46,12 +46,12 @@ if (isset($result2['img'])) {
 
 
 // For Male Query
-$q = "select users.id, concat(users.first_name,' ',users.last_name) as name,profile_pic.name as img  from users,profile_pic where role = '1' and gender = 'male' and profile_pic.user_id = users.id";
+$q = "select users.id, concat(users.first_name,' ',users.last_name) as name,profile_pic.name as img  from users,profile_pic where role = '1' and status = '2' and gender = 'male' and profile_pic.user_id = users.id order by users.id desc limit 10";
 $result = $conn->query($q);
 
 
 // For FeMale Query
-$qury = "select users.id, concat(users.first_name,' ',users.last_name) as name,profile_pic.name as img  from users,profile_pic where role = '1' and gender = 'female' and profile_pic.user_id = users.id";
+$qury = "select users.id, concat(users.first_name,' ',users.last_name) as name,profile_pic.name as img  from users,profile_pic where role = '1' and status = '2' and gender = 'female' and profile_pic.user_id = users.id order by users.id desc limit 10";
 $res = $conn->query($qury)
 
 ?>
@@ -79,19 +79,19 @@ $res = $conn->query($qury)
                                 <div class="col-md-8">
                                     <div class="pro-info">
                                         <ul class="user-details">
-                                            <li>Name: <?= $result2['name']??'' ?> </li>
-                                            <li>Height: <?= $result2['height'].'"'??'' ?></li>
-                                            <li>Weight: <?= $result2['weight'].'Kg'??'' ?></li>
-                                            <li>Skin Color: <?= $result2['skin_color']??'' ?></li>
-                                            <li>Religion: <?= $result2['religion']??'' ?></li>
-                                            <li>Blood Group: <?= $result2['blood_group']??'' ?></li>
-                                            <li>Hobby: <?= $result2['hobby']??'' ?></li>
-                                            <li>Income: <?= "$".$result2['salary']??'' ?></li>
-                                            <li>Phone: +880<?= $result2['phone']??'' ?></li>
+                                            <li>Name: <?= $result2['name'] ?? '' ?> </li>
+                                            <li>Height: <?= $result2['height'] . '"' ?? '' ?></li>
+                                            <li>Weight: <?= $result2['weight'] . 'Kg' ?? '' ?></li>
+                                            <li>Skin Color: <?= $result2['skin_color'] ?? '' ?></li>
+                                            <li>Religion: <?= $result2['religion'] ?? '' ?></li>
+                                            <li>Blood Group: <?= $result2['blood_group'] ?? '' ?></li>
+                                            <li>Hobby: <?= $result2['hobby'] ?? '' ?></li>
+                                            <li>Income: <?= "$" . $result2['salary'] ?? '' ?></li>
+                                            <li>Phone: +880<?= $result2['phone'] ?? '' ?></li>
                                         </ul>
                                     </div>
                                     <div class="social-info">
-                                   
+
                                         <ul class="social-link sl-2 text-center">
                                             <?php
                                             if (isset($social)) {
@@ -198,25 +198,27 @@ $res = $conn->query($qury)
                     <aside>
                         <div class="brides-sidebar">
                             <h3 class="sidebar-heading">Brides</h3>
-                            <?php
-                            if ($res->num_rows) {
-                                while ($rw = $res->fetch_assoc()) {
-                                    $img = $row['img'] ? "profile-image/" . $row['img'] : "assets/images/no-image.png";
+                            <marquee  direction="up">
+                                <?php
+                                if ($res->num_rows) {
+                                    while ($rw = $res->fetch_assoc()) {
+                                        $img = $row['img'] ? "profile-image/" . $row['img'] : "assets/images/no-image.png";
 
-                            ?>
-                                    <div class="single-item d-flex align-items-center my-3 bg-white p-3 shadow-lg rounded-2">
-                                        <img src="<?= settings()['homepage'] . $img ?>" alt="">
-                                        <h3><a href="<?= settings()['homepage'] ?>person-details.php?id=<?= $rw['id'] ?>"><?= $rw['name'] ?></a></h3>
-                                    </div>
-                            <?php
+                                ?>
+                                        <div class="single-item d-flex align-items-center my-3 bg-white p-3 shadow-lg rounded-2">
+                                            <img src="<?= settings()['homepage'] . $img ?>" alt="">
+                                            <h3><a href="<?= settings()['homepage'] ?>person-details.php?id=<?= $rw['id'] ?>"><?= $rw['name'] ?></a></h3>
+                                        </div>
+                                <?php
 
+                                    }
                                 }
-                            }
-                            ?>
-
+                                ?>
+                            </marquee>
                         </div>
                         <div class="brides-sidebar">
                             <h3 class="sidebar-heading">Grooms</h3>
+                            <marquee  direction="up">
                             <?php
                             if ($result->num_rows) {
                                 while ($row = $result->fetch_assoc()) {
@@ -234,7 +236,7 @@ $res = $conn->query($qury)
                             }
                             ?>
 
-
+                            </marquee>
                         </div>
                     </aside>
                 </div>

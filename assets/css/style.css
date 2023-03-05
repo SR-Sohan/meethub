@@ -4,6 +4,10 @@
             Reset CSS 
 ==================================
  */
+ :root {
+  --animate-duration: 800ms;
+  --animate-delay: 0.9s;
+}
 
  body{
     font-family: 'Poppins', sans-serif !important;
@@ -94,25 +98,41 @@ ul,ol{
     color: #fff;
     background-color: #e72f59;
  }
+ .dropdown-menu{
+  z-index: 9999;
+ }
 
  /* 
 ==================================
             Carousel CSS 
 ==================================
  */
- .carousel-item img{
-   height: 100vh;
- }
- .carousel-caption{
-   top: 50%;
-   color: #fff !important;
- }
- .carousel-caption h5{
-   font-size: 83px;
-   font-weight: 700;
- }
+.homeSwiper{
+  z-index: -1;
+}
+ .slider-content-box{
+  position: relative;
 
-
+ }
+.slider-content-box img{
+  height: 100vh;
+ 
+}
+.slider-content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #fff;
+}
+.slider-content h1{
+  font-size: 60px;
+  font-weight: 700;
+}
+.slider-content  p{
+  font-size: 30px;
+  font-weight: 500;
+}
   /* 
 ==================================
             Weeding CSS 
@@ -120,13 +140,13 @@ ul,ol{
  */
  .weeding-soon{
    background-color: #FAF5F4;
+   padding-top: 80px;
  }
  .weeding-wrap{
    background-color: #fff;
    padding: 100px 50px;
    border-radius: 20px;
-   position: relative;
-   top: -100px;
+  
  }
  .weeding-content h1{
    font-size: 64px;
@@ -404,6 +424,13 @@ ul,ol{
   border-radius: 10px;
   background-color: #fff;
  }
+ .person-img img{
+  width: 180px !important;
+  height: 180px !important;
+  object-fit: cover;
+ }
+
+
 
    /* 
 ==================================
@@ -430,7 +457,7 @@ ul,ol{
 }
 .profile-img img{
   border-radius: 50%;
-  object-fit: fill;
+  object-fit: cover;
 }
 .profile-img a{
   color: #fff;
@@ -544,6 +571,9 @@ transition: .5s;
   height: 400px;
   margin-right: 20px;
 }
+.image img{
+  object-fit: cover;
+ }
 .user-details {
   list-style-type: none;
   margin: 20px;
@@ -571,7 +601,7 @@ transition: .5s;
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  object-fit: fill;
+  object-fit: cover;
 }
 .single-item  h3 a{
   color: #282828;

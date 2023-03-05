@@ -6,7 +6,13 @@
     // 
 // Scripts
 // 
-
+$(document).ready(function(){
+    $('#addBtn').click(function(){
+       
+        $("#formList").toggleClass('showHide')
+    })
+  
+})
 window.addEventListener('DOMContentLoaded', event => {
 
     // Toggle the side navigation

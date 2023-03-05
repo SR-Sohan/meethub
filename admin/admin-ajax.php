@@ -17,10 +17,8 @@ if(isset($_POST['uid'])){
 }
 
 // Delete Users
-
 if(isset($_POST['did'])){
     $q = "delete from users where id='".$_POST['did']."'";
-
     $conn->query($q);
 
     if($conn->affected_rows){
@@ -28,4 +26,28 @@ if(isset($_POST['did'])){
     }else{
         echo "Not Deleted";
     }
+}
+
+// Carousel item Delete
+if(isset($_POST['cid'])){
+    $q = "delete from carousel where id='".$_POST['cid']."'";
+    $conn->query($q);
+    if($conn->affected_rows){
+        echo "Carousel Deleted";
+    }else{
+        echo "Not Deleted";
+    }
+       
+}
+
+// Event item Delete
+if(isset($_POST['event_id'])){
+    $q = "delete from event where id='".$_POST['event_id']."'";
+    $conn->query($q);
+    if($conn->affected_rows){
+        echo "Event Deleted";
+    }else{
+        echo "Not Deleted";
+    }
+       
 }

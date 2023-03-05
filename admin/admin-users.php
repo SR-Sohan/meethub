@@ -14,6 +14,7 @@ if (!Admin::Check()) {
 $db = new MysqliDb();
 $page = "All Users";
 $db->where("role", '1');
+$db->orderBy ("users.id","desc");
 $users = $db->get("users");
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
