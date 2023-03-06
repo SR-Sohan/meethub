@@ -13,6 +13,7 @@ if (isset($_POST['reg'])) {
     'email' => $db->escape($_POST['email']),
     'gender' => $db->escape($_POST['gender']),
     'marital_status' => $db->escape($_POST['marital']),
+    'age' => $db->escape($_POST['age']),
     'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
     'role' => "1",
     'status' => "1",
@@ -63,6 +64,11 @@ if (isset($_POST['reg'])) {
         <label for="exampleInputPassword1" class="form-label">Password:
         </label>
         <input type="password" name="password" class="form-control" id="exampleInputPassword1" />
+      </div>
+      <div class="mb-3">
+        <label for="age" class="form-label">Age:
+        </label>
+        <input type="number" name="age" class="form-control" id="age" />
       </div>
 
       <div class="mb-3">

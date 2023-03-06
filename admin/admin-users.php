@@ -36,7 +36,7 @@ $page = "Users";
                     </ol>
                     <label for="filterUser">Filter Users</label>
                     <select id="filterUser" class="form-select" aria-label="Default select example">
-                        <option selected>Filter Users</option>
+                        <option  selected value="all">All</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                         <option value="2">Active Users</option>

@@ -79,10 +79,10 @@ if (isset($_GET['all'])) {
        <a class="btn btn-outline-primary" href="">View</a>
        <a  data-id="' . $row['id'] . '" class="btn btn-outline-danger deleteUsers" href="javascript:void(0)">Delete</a>
    </td>';
-
+   $html .= "</tr>";
             $sl++;
         }
-        $html .= "</tr>";
+       
 
         echo json_encode($html);
     } else echo "Users Not Found";
@@ -92,6 +92,9 @@ if (isset($_GET['all'])) {
 // filter users
 if (isset($_GET['filter'])) {
     $q = "";
+    if($_GET['filter'] == 'all'){
+        $q = "select * from users where role= '1' ORDER BY users.id desc";
+    }
     if($_GET['filter'] == 'male' || $_GET['filter'] == 'female'){
         $q = "select * from users where role= '1' and gender= '".$_GET['filter']."' ORDER BY users.id desc";
     }
@@ -125,10 +128,11 @@ if (isset($_GET['filter'])) {
        <a class="btn btn-outline-primary" href="">View</a>
        <a  data-id="' . $row['id'] . '" class="btn btn-outline-danger deleteUsers" href="javascript:void(0)">Delete</a>
    </td>';
+   $html .= "</tr>";
 
             $sl++;
         }
-        $html .= "</tr>";
+        
 
         
     } else $html = "<p>Users Not Found</p>";
