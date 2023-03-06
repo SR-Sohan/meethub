@@ -24,11 +24,11 @@ $row = $db->getOne("users");
 
     <?php require __DIR__ . '/components/menubar.php'; ?>
 
-    <div class="profile-page-area">
+    <div  class="profile-page-area">
         <div class="container-fluid">
             <div class="row">
             <?php require __DIR__ . '/components/profile_sidebar.php'; ?>
-                <div class="col-md-8 md-offset-1">
+                <div data-aos="fade-up" data-aos-duration="1000" class="col-md-8 md-offset-1">
                     <div class="user-info shadow-lg">
                         <div class="edit-btn">
                             <a href="<?= settings()['homepage']?>edit_profile.php?user_id=<?= $row['id']??'' ?>"> <i class="fa fa-pen fa-xs edit"></i></a>

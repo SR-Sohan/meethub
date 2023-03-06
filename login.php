@@ -48,7 +48,7 @@ if (isset($_POST['login'])) {
   <?php require __DIR__ . '/components/dismissalert.php'; ?>
   <!--  -->
   <div class="container">
-    <form class="common-form shadow-lg" method="post">
+    <form data-aos="fade-up" data-aos-duration="1000" class="common-form shadow-lg" method="post">
       <h1>Login </h1>
       <hr>
       <br>

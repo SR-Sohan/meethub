@@ -45,7 +45,7 @@ if (isset($_POST['add'])) {
         <div class="container-fluid">
             <div class="row">
                 <?php require __DIR__ . '/components/profile_sidebar.php'; ?>
-                <div class="col-md-8 md-offset-1">
+                <div data-aos="fade-up" data-aos-duration="1000" class="col-md-8 md-offset-1">
                     <div class="user-info shadow-lg">
                         <div id="addBtn" class="add-family-icon">
                             <i class="fa-solid fa-plus"></i>

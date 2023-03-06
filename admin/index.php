@@ -65,7 +65,7 @@ $message = $db->get("message");
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-danger text-white mb-4 text-center">
                                     <div class="card-body">
-                                        <h3>New Message</h3>
+                                        <h3>Unread Message</h3>
                                         <h5><?= count($message); ?></h5>
                                     </div>
                                   

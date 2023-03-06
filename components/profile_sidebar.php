@@ -11,7 +11,7 @@ $pic = $db->getOne("profile_pic");
 $img = isset($pic) ? settings()['homepage']."profile-image/".$pic['name'] : settings()['homepage']."assets/images/no-image.png";
 ?>
 
-<div class="col-md-3">
+<div data-aos="fade-right" data-aos-duration="1000" class="col-md-3">
     <div class="profile-sidebar text-white">
         <div class="profile-img">
             <img src="<?= $img ?>" alt="">

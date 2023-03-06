@@ -37,7 +37,6 @@ if(isset($_POST['dis_id'])){
 
 
 //insert message
-
 if(isset($_POST['msg_id'])){
     $id = $_POST['msg_id'];
     $name = $_POST['name'];
@@ -55,4 +54,33 @@ if(isset($_POST['msg_id'])){
     }else{
         echo "Message Not Sent";
     }
+}
+
+// Search District
+
+if(isset($_GET['dis_search'])){
+    $q = "select * from districts where 1";
+
+    $result = $conn->query($q);
+
+    if($result->num_rows){
+        $html = "";
+        while($row = $result->fetch_assoc()){
+            $html .= "<option value='".$row['id']."'>".$row['name']."</option>";
+        }
+    }else $html = "";
+
+    echo json_encode($html);
+}
+
+// Search Partner
+
+if(isset($_GET['action'])){
+    $profession = $_GET['profession'];
+    $district = $_GET['district'];
+    $marital = $_GET['marital'];
+    $education = $_GET['education'];
+    $gender = $_GET['gender'];
+
+    $q1 = "SELECT * FROM users WHERE role= '1' AND users.gender = '".$gender."' AND users.marital_status = '".$marital."'";
 }

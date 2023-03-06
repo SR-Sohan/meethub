@@ -41,7 +41,7 @@ if (isset($_POST['add'])) {
 
     <div class="profile-page-area">
         <div class="container-fluid">
-            <div class="row">
+            <div data-aos="fade-up" data-aos-duration="1000" class="row">
                 <?php require __DIR__ . '/components/profile_sidebar.php'; ?>
                 <div class="col-md-8 md-offset-1">
                     <div class="user-info shadow-lg">

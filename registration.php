@@ -35,7 +35,7 @@ if (isset($_POST['reg'])) {
   <?php require __DIR__ . '/components/menubar.php'; ?>
 
   <div class="container">
-    <form class="common-form shadow-lg" method="post">
+    <form data-aos="fade-up" data-aos-duration="1000" class="common-form shadow-lg" method="post">
       <h1>Registration Form</h1>
       <h2><?= $message ?? '' ?></h2>
       <hr>
