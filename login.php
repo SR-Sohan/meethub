@@ -20,6 +20,7 @@ if (isset($_POST['login'])) {
       $_SESSION['fname'] = $row['first_name'];
       $_SESSION['lname'] = $row['last_name'];
       $_SESSION['role'] = $row['role'];
+      $_SESSION['status'] = $row['status'];
 
       //Role Check
       if ($row['role'] == "2") {

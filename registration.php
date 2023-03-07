@@ -1,30 +1,46 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 $page = "Registration";
+
 if (isset($_POST['reg'])) {
 
   $db = new MysqliDb();
+  $users = $db->get('users');
 
-  //Store Data in Array
-  $data = [
-    'first_name' => $db->escape($_POST['fname']),
-    'last_name' => $db->escape($_POST['lname']),
-    'phone' => $db->escape($_POST['phone']),
-    'email' => $db->escape($_POST['email']),
-    'gender' => $db->escape($_POST['gender']),
-    'marital_status' => $db->escape($_POST['marital']),
-    'age' => $db->escape($_POST['age']),
-    'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
-    'role' => "1",
-    'status' => "1",
-  ];
+  $email = $db->escape($_POST['email']);
+  $phone = $db->escape($_POST['phone']);
+  var_dump($users);
 
-  if ($db->insert("users", $data)) {
-    header("location:login.php");
-  } else {
-    $message = "Regitration failed!!";
+  foreach ($users as $key => $v) {
+    if ($email != $v['email']) {
+      if ($phone != $v['phone']) {
+        //Store Data in Array
+        $data = [
+          'first_name' => $db->escape($_POST['fname']),
+          'last_name' => $db->escape($_POST['lname']),
+          'phone' => $db->escape($_POST['phone']),
+          'email' => $db->escape($_POST['email']),
+          'gender' => $db->escape($_POST['gender']),
+          'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
+          'role' => "1",
+          'status' => "1",
+        ];
+
+        if ($db->insert("users", $data)) {
+          header("location:login.php");
+        } else {
+          $message = "Regitration failed!!";
+        }
+      }else{
+        $message = "This phone number already used!";
+      }
+    }else{
+      $message = "This email already used!";
+    }
   }
 }
+
+
 ?>
 
 <?php require __DIR__ . '/components/header.php'; ?>
@@ -37,7 +53,7 @@ if (isset($_POST['reg'])) {
   <div class="container">
     <form data-aos="fade-up" data-aos-duration="1000" class="common-form shadow-lg" method="post">
       <h1>Registration Form</h1>
-      <h2><?= $message ?? '' ?></h2>
+      <h2 class="text-danger"><?= $message ?? '' ?></h2>
       <hr>
       <br>
       <br>
@@ -65,11 +81,6 @@ if (isset($_POST['reg'])) {
         </label>
         <input type="password" name="password" class="form-control" id="exampleInputPassword1" />
       </div>
-      <div class="mb-3">
-        <label for="age" class="form-label">Age:
-        </label>
-        <input type="number" name="age" class="form-control" id="age" />
-      </div>
 
       <div class="mb-3">
         <label for="gender">Gender: </label>
@@ -78,14 +89,14 @@ if (isset($_POST['reg'])) {
         <input type="radio" name="gender" id="female" value="female">
         <label for="female">Female</label>
       </div>
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <select class="form-select" name="marital" aria-label="Default select example">
           <option selected>Select Marital Status</option>
           <option value="unmarried">Unmarried</option>
           <option value="divorced">Divorced</option>
           <option value="widow">Widow</option>
         </select>
-      </div>
+      </div> -->
 
 
       <button type="submit" name="reg" class="form-btn">Sign Up</button>
