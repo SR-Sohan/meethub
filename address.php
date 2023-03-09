@@ -9,39 +9,30 @@ use App\model\Category;
 use App\db;
 $id = $_SESSION['userid'];
 $conn = db::connect();
-$q = "SELECT address.*,
- divisions.name AS pDivisions,
- districts.name AS pDistricts,
- upazilas.name AS pUpazila
- FROM 
- address, 
- divisions,
- districts,
- upazilas 
- WHERE 
- address.user_id = ".$id." AND
- divisions.id = address.p_division AND
- districts.id = address.p_disrict and
- upazilas.id = address.p_thana";
+$q = "SELECT a.id,a.user_id, divisions.name as pDiv,districts.name as pDis, upazilas.name as pUp,divisions.name as hDiv,districts.name as hDis, upazilas.name as hUp, a.p_country,a.p_village,a.p_house,a.h_country,a.h_village,a.h_house
+FROM users u
+INNER JOIN address a
+ON u.id = a.user_id
+INNER JOIN divisions
+ON a.p_division = divisions.id
+INNER JOIN districts
+on a.p_division = districts.id
+INNER JOIN upazilas
+ON a.p_thana = upazilas.id 
+INNER JOIN divisions d
+on a.h_division = d.id
+INNER JOIN districts dis
+on a.h_district = dis.id
+INNER JOIN upazilas up 
+on a.h_thana = up.id
+WHERE u.id = '".$id."'";
 
-$q2 = "SELECT home_address.*,
- divisions.name AS hDivisions,
- districts.name AS hDistricts,
- upazilas.name AS hUpazila
- FROM 
- home_address, 
- divisions,
- districts,
- upazilas 
- WHERE 
- home_address.user_id = ".$id." AND
- divisions.id = home_address.division AND
- districts.id = home_address.district and
- upazilas.id = home_address.thana";
+
 
 $r =  $conn->query($q)->fetch_assoc();
-$r2 =  $conn->query($q2)->fetch_assoc();
 $page = "Address";
+
+
 
 
 
@@ -74,17 +65,17 @@ $page = "Address";
                                 <tr>
                                     <td>Present Division</td>
                                     <td>:</td>
-                                    <td><?=  $r['pDivisions']??''?></td>
+                                    <td><?=  $r['pDiv']??''?></td>
                                 </tr>
                                 <tr>
                                     <td>Present Districts</td>
                                     <td>:</td>
-                                    <td><?=  $r['pDistricts']??''?></td>
+                                    <td><?=  $r['pDis']??''?></td>
                                 </tr>
                                 <tr>
                                     <td>Present Thana</td>
                                     <td>:</td>
-                                    <td><?=  $r['pUpazila']??''?></td>
+                                    <td><?=  $r['pUp']??''?></td>
                                 </tr>
                                 <tr>
                                     <td>Present Village/Area</td>
@@ -99,32 +90,32 @@ $page = "Address";
                                 <tr>
                                     <td>Home Country</td>
                                     <td>:</td>
-                                    <td><?=  $r2['country']??''?></td>
+                                    <td><?=  $r['h_country']??''?></td>
                                 </tr>
                                 <tr>
                                     <td>Home Division</td>
                                     <td>:</td>
-                                    <td><?=  $r2['hDivisions']??''?></td>
+                                    <td><?=  $r['hDiv']??''?></td>
                                 </tr>
                                 <tr>
                                     <td>Home Districts</td>
                                     <td>:</td>
-                                    <td><?=  $r2['hDistricts']??''?></td>
+                                    <td><?=  $r['hDis']??''?></td>
                                 </tr>
                                 <tr>
                                     <td>Home Thana</td>
                                     <td>:</td>
-                                    <td><?=  $r2['hUpazila']??''?></td>
+                                    <td><?=  $r['hUp']??''?></td>
                                 </tr>
                                 <tr>
                                     <td>Home Village/Area</td>
                                     <td>:</td>
-                                    <td><?=  $r2['village']??''?></td>
+                                    <td><?=  $r['h_village']??''?></td>
                                 </tr>
                                 <tr>
                                     <td>Home House No</td>
                                     <td>:</td>
-                                    <td><?=  $r2['house']??''?></td>
+                                    <td><?=  $r['h_house']??''?></td>
                                 </tr>
 
                               </tbody>

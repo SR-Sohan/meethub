@@ -16,38 +16,33 @@ $id = $_SESSION['userid'];
 
 $db->where("user_id ", $id);
 $row = $db->getOne("address");
-$db->where("user_id ", $id);
-$row2 = $db->getOne("home_address");
 
 if (isset($_POST['update'])) {
     $data = [
         'user_id' => $db->escape($_POST['user_id']),
         'p_country' => $db->escape($_POST['p_country']),
         'p_division' => $db->escape($_POST['p_division']),
-        'p_disrict' => $db->escape($_POST['p_district']),
+        'p_district' => $db->escape($_POST['p_district']),
         'p_thana' => $db->escape($_POST['p_thana']),
         'p_village' => $db->escape($_POST['p_village']),
-        'p_house' => $db->escape($_POST['p_house'])
+        'p_house' => $db->escape($_POST['p_house']),
+        'h_country' => $db->escape($_POST['h_country']),
+        'h_division' => $db->escape($_POST['h_division']),
+        'h_district' => $db->escape($_POST['h_district']),
+        'h_thana' => $db->escape($_POST['h_thana']),
+        'h_village' => $db->escape($_POST['h_village']),
+        'h_house' => $db->escape($_POST['h_house']),
     ];
-    $data2 = [
-        'user_id' => $db->escape($_POST['user_id']),        
-        'country' => $db->escape($_POST['h_country']),
-        'division' => $db->escape($_POST['h_division']),
-        'district' => $db->escape($_POST['h_district']),
-        'thana' => $db->escape($_POST['h_thana']),
-        'village' => $db->escape($_POST['h_village']),
-        'house' => $db->escape($_POST['h_house']),
-    ];
-
-    if ($row && $row2) {
+  
+    if ($row ) {
         $db->where("user_id ", $id);
-        if ($db->update("address", $data) && $db->update("home_address", $data2)) {
+        if ($db->update("address", $data)) {
             header("location:address.php");
         } else {
             $message = "Update failed!!";
         }
     } else {
-        if ($db->insert("address", $data) && $db->insert("home_address", $data2)) {
+        if ($db->insert("address", $data)) {
             header("location:address.php");
         } else {
             $message = "Insert failed!!";

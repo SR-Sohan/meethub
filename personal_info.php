@@ -14,6 +14,12 @@ $page = "Personal Info";
 $id = $_SESSION['userid'];
 $db->where("user_id ", $id);
 $row = $db->getOne("personal_info");
+
+ // replace with the actual date of birth
+$today = new DateTime(); 
+$diff = $today->diff(new DateTime($row['dob'])); 
+$age = $diff->y;
+
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
 
@@ -35,6 +41,16 @@ $row = $db->getOne("personal_info");
                         <table>
                             <tbody>
                                 <tr>
+                                    <td>DOB & Age</td>
+                                    <td>:</td>
+                                    <td><?= $row['dob']??''?> | <?= $age??''?> Years.</td>
+                                </tr>
+                                <tr>
+                                    <td>Marital Status</td>
+                                    <td>:</td>
+                                    <td><?= $row['marital_status']??''?></td>
+                                </tr>
+                                <tr>
                                     <td>Height</td>
                                     <td>:</td>
                                     <td><?= $row['height']??''?></td>
@@ -45,9 +61,9 @@ $row = $db->getOne("personal_info");
                                     <td><?= $row['weight']??''?></td>
                                 </tr>
                                 <tr>
-                                    <td>Skin Color</td>
+                                    <td>Physical Status</td>
                                     <td>:</td>
-                                    <td><?= $row['skin_color']??''?></td>
+                                    <td><?= $row['physical']??''?></td>
                                 </tr>
                                 <tr>
                                     <td>Religion</td>
@@ -60,19 +76,24 @@ $row = $db->getOne("personal_info");
                                     <td><?= $row['blood_group']??''?></td>
                                 </tr>
                                 <tr>
-                                    <td>Hobby</td>
+                                    <td>Eating Habits</td>
                                     <td>:</td>
-                                    <td><?= $row['hobby']??''?></td>
+                                    <td><?= $row['eating_habits']??''?></td>
                                 </tr>
                                 <tr>
-                                    <td>Profession</td>
+                                    <td>Smoking Habits</td>
                                     <td>:</td>
-                                    <td><?= $row['profession']??''?></td>
+                                    <td><?= $row['smoking_habits']??''?></td>
                                 </tr>
                                 <tr>
-                                    <td>Income</td>
+                                    <td>Drinking Habits</td>
                                     <td>:</td>
-                                    <td><?= $row['salary']??''?></td>
+                                    <td><?= $row['drinking_habits']??''?></td>
+                                </tr>
+                                <tr>
+                                    <td>About Me</td>
+                                    <td>:</td>
+                                    <td><?= $row['about']??''?></td>
                                 </tr>
                             </tbody>
                         </table>

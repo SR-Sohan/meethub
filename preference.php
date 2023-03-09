@@ -24,7 +24,7 @@ if (isset($_POST['add'])) {
 
     ];
 
-   
+
 
     if ($db->insert("partner_preference", $data)) {
         header("location:" . $_SERVER['PHP_SELF']);
@@ -47,92 +47,69 @@ if (isset($_POST['add'])) {
                 <?php require __DIR__ . '/components/profile_sidebar.php'; ?>
                 <div data-aos="fade-up" data-aos-duration="1000" class="col-md-8 md-offset-1">
                     <div class="user-info shadow-lg">
-                        <div id="addBtn" class="add-family-icon">
-                            <i class="fa-solid fa-plus"></i>
+                        <div class="edit-btn">
+                            <a href="<?= settings()['homepage'] ?>edit_preference.php?user_id=<?= $id ?>"> <i class="fa fa-pen fa-xs edit"></i></a>
                         </div>
-                        <form id="formList" class="mt-4 showHide" action="" method="post">
-                            <input type="hidden" name="user_id" value="<?= $id ?>">
-                            <div class="mb-3">
-                                <select class="form-select" name="exam" aria-label="Default select example">
-                                    <option selected>Select Education</option>
-                                    <option value="psc">PSC</option>
-                                    <option value="jsc">JSC</option>
-                                    <option value="jdc">JDC</option>
-                                    <option value="ssc">SSC</option>
-                                    <option value="dakhil">Dakhil</option>
-                                    <option value="hsc">HSC</option>
-                                    <option value="alim">Alim</option>
-                                    <option value="ba">BA</option>
-                                    <option value="bba">BBA</option>
-                                    <option value="bsc">BSC</option>
-                                    <option value="ma">MA</option>
-                                    <option value="mba">MBA</option>
-                                    <option value="msc">MSC</option>
-                                    <option value="others ">Others</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="h_district" class="form-label">Home District: </label>
-                                <select onchange="hDistrict(this.value)" class="form-select" name="district" id="h_district" aria-label="Default select example" required>
-                                    <option disabled selected>Select District</option>
-                                    <?php
-                                    foreach ($r as $key => $dis) {
-                                        echo '<option value="' . $dis['id'] . '">' . $dis['name'] . '</option>';
-                                    }
-                                    ?>
 
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="height" class="form-label">Height: </label>
-                                <input name="height" type="text" class="form-control" id="phone" aria-describedby="emailHelp" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="dislike" class="form-label">Dislike Habits:</label>
-                                <textarea class="form-control" name="habits" id="hobby" rows="3"></textarea>
-                            </div>
-
-
-
-                            <button type="submit" name="add" class="form-btn">Add</button>
-                        </form>
-
-                        <div class="dislike-list mt-4">
-                            <table class="table table-danger table-striped w-100">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Education</th>
-                                        <th scope="col">District</th>
-                                        <th scope="col">Height</th>
-                                        <th scope="col">Dislike Habits</th>
-                                        <th scope="col">Action</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-
-                                    if (isset($preference)) {
-                                        
-                                        foreach ($preference as $key => $value) {
-
-                                       ?>
-                                    <tr>
-                                        <th scope="row"><?= strtoupper($value['education'])?></th>
-                                        <td><?= $value['district']?></td>
-                                        <td><?= $value['height']?></td>
-                                        <td><?= $value['dislike_habbit']?></td>
-                                        
-                                        <td><a href="" class="btn btn-outline-primary">Edit</a> <a href="<?= settings()['homepage']?>delete_preference.php?id=<?= $value['id']?>" class="btn btn-outline-danger">Delete</a></td>
-                                    </tr>
-                                    <?php
-                                        }}
-                            
-                                    ?>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>DOB & Age</td>
+                                    <td>:</td>
+                                    <td><?= $row['dob'] ?? '' ?> | <?= $age ?? '' ?> Years.</td>
+                                </tr>
+                                <tr>
+                                    <td>Marital Status</td>
+                                    <td>:</td>
+                                    <td><?= $row['marital_status'] ?? '' ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Height</td>
+                                    <td>:</td>
+                                    <td><?= $row['height'] ?? '' ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Weight</td>
+                                    <td>:</td>
+                                    <td><?= $row['weight'] ?? '' ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Physical Status</td>
+                                    <td>:</td>
+                                    <td><?= $row['physical'] ?? '' ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Religion</td>
+                                    <td>:</td>
+                                    <td><?= $row['religion'] ?? '' ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Blood Group</td>
+                                    <td>:</td>
+                                    <td><?= $row['blood_group'] ?? '' ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Eating Habits</td>
+                                    <td>:</td>
+                                    <td><?= $row['eating_habits'] ?? '' ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Smoking Habits</td>
+                                    <td>:</td>
+                                    <td><?= $row['smoking_habits'] ?? '' ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Drinking Habits</td>
+                                    <td>:</td>
+                                    <td><?= $row['drinking_habits'] ?? '' ?></td>
+                                </tr>
+                                <tr>
+                                    <td>About Me</td>
+                                    <td>:</td>
+                                    <td><?= $row['about'] ?? '' ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
 
 
                     </div>

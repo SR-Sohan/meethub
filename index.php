@@ -27,7 +27,7 @@ users.status = '2' AND
 address.user_id = users.id AND
 profile_pic.user_id = users.id AND
 divisions.id = address.p_division AND
-districts.id = address.p_disrict AND
+districts.id = address.p_district AND
 personal_info.user_id = users.id order by users.id DESC limit 10";
 $q2 = "SELECT users.id, concat(users.first_name,' ',users.last_name) as name,
 divisions.name as divisions,
@@ -42,7 +42,7 @@ users.status = '2' AND
 address.user_id = users.id AND
 profile_pic.user_id = users.id AND
 divisions.id = address.p_division AND
-districts.id = address.p_disrict AND
+districts.id = address.p_district AND
 personal_info.user_id = users.id order by users.id DESC limit 10";
 
 $result = $conn->query($q);

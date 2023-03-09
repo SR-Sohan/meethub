@@ -1,68 +1,26 @@
-SELECT address.* ,divisions.name AS pDivisions,districts.name AS pDistricts,upazilas.name AS pUpazila, divisions.name AS hDivisions, districts.name as hDistricts, upazilas.name as hUpazilas 
-FROM address, divisions,districts,upazilas 
-WHERE  address.p_division = divisions.id AND address.p_disrict = districts.id and address.p_thana = upazilas.id and address.h_division = divisions.id AND address.h_disrict = districts.id AND address.h_thana = upazilas.id AND address.user_id = 1;
-
-
-
-SELECT address.* ,divisions.name AS pDivisions,districts.name AS pDistricts,upazilas.name AS pUpazila, divisions.name AS hDivisions, districts.name as hDistricts, upazilas.name as hUpazilas FROM address, divisions,districts,upazilas WHERE user_id = 1 AND divisions.id = address.p_division AND districts.id = address.p_disrict and upazilas.id = address.p_thana and divisions.id = address.h_division AND districts.id = address.h_disrict AND upazilas.id = address.h_thana
-
-
-SELECT address.*,
-divisions.name AS pDivisions,
-districts.name AS pDistricts,
-upazilas.name AS pUpazila
-FROM 
-address, 
-divisions,
-districts,
-upazilas 
-WHERE 
-address.user_id = 1 AND
-divisions.id = address.p_division AND
-districts.id = address.p_disrict and
-upazilas.id = address.p_thana;
-
-
-SELECT users.id, concat(users.first_name,' ',users.last_name) as name,
-divisions.name as divisions,
-districts.name as districts,
-personal_info.* 
-FROM `users`,address,divisions,districts,personal_info
-WHERE 
-users.gender = 'male' AND
-users.role = '1' AND
-users.status = '2' AND
-address.user_id = users.id AND
-divisions.id = address.p_division AND
-districts.id = address.p_disrict AND
-personal_info.user_id = users.id;
 
 ALTER TABLE personal_info add CONSTRAINT fk_user_personal_id 
 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
-
-
 
 ALTER TABLE profile_pic
 add CONSTRAINT fk_user_id_profile_pic
 FOREIGN KEY profile_pic(user_id) REFERENCES users(id) on DELETE CASCADE;
 
-SELECT partner_preference.*, districts.name as dis FROM partner_preference,districts WHERE partner_preference.user_id = 1 AND districts.id = partner_preference.district;
 
-
-SELECT users.id, concat(users.first_name,' ',users.last_name) as name,
-divisions.name as divisions,
-districts.name as districts,
-personal_info.* ,
-profile_pic.name as img
-FROM `users`,address,divisions,districts,personal_info,profile_pic
-WHERE 
-users.gender = 'male' AND
-users.role = '1' AND
-users.status = '2' AND
-address.user_id = 9 AND
-profile_pic.user_id = users.id AND
-divisions.id = address.p_division AND
-districts.id = address.p_disrict AND
-personal_info.user_id = users.id;
+SELECT a.id,a.user_id, divisions.name as pDiv,districts.name as pDis, upazilas.name as pUp,divisions.name as hDiv,districts.name as hDis, upazilas.name as hUp, a.p_country,a.p_village,a.p_house,a.h_country,a.h_village,a.h_house
+FROM users u
+INNER JOIN address a
+ON u.id = a.user_id
+INNER JOIN divisions
+ON a.p_division = divisions.id
+INNER JOIN districts
+on a.p_division = districts.id
+INNER JOIN upazilas
+ON a.p_thana = upazilas.id 
+INNER JOIN divisions d
+on a.h_division = d.id
+INNER JOIN districts dis
+on a.h_district = dis.id
+INNER JOIN upazilas up 
+on a.h_thana = up.id
+WHERE u.id = 21;

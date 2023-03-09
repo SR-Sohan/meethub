@@ -24,7 +24,7 @@ $img = isset($pic) ? settings()['homepage']."profile-image/".$pic['name'] : sett
             <li><a href="<?= settings()['homepage']?>personal_info.php">Personal Info</a></li>
             <li><a href="<?= settings()['homepage']?>family_info.php">Family Info</a></li>
             <li><a href="<?= settings()['homepage']?>address.php">Address</a></li>
-            <li><a href="<?= settings()['homepage']?>educations.php">Educations</a></li>
+            <li><a href="<?= settings()['homepage']?>educations_occupation.php">Educations & Occupation</a></li>
             <li><a href="<?= settings()['homepage']?>social.php">Social Link</a></li>
             <li><a href="<?= settings()['homepage']?>preference.php">Preference</a></li>
         </ul>

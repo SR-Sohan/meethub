@@ -63,7 +63,7 @@ if (isset($_POST['update'])) {
                     <div class="user-info shadow-lg">
 
                         <form class="" method="post">
-                            <h1>Edit Personal Info</h1>
+                            <h1>Edit Preference Info</h1>
                             <hr>
                             <br>
                             <br>
