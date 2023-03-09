@@ -12,32 +12,32 @@ $conn = db::connect();
 $db = new MysqliDb();
 $page = "Couple";
 
-$gender = $_GET['person'] == "brides" ? "female" : "male";
+if(isset($_SESSION['gender'])){
+    $gender = $_SESSION['gender'] == 'male' ? "female" : "male";
+    };
 
-$q = "SELECT users.id, concat(users.first_name,' ',users.last_name) as name,
-divisions.name as divisions,
-districts.name as districts,
-personal_info.* ,
-profile_pic.name as img
-FROM `users`,address,divisions,districts,personal_info,profile_pic
-WHERE 
-users.gender = '$gender' and 
-users.role = '1' AND
-users.status = '2' AND
-address.user_id = users.id AND
-profile_pic.user_id = users.id AND
-divisions.id = address.p_division AND
-districts.id = address.p_disrict AND
-personal_info.user_id = users.id order by users.id DESC";
+echo $gender;
 
-$result = $conn->query($q);
+// $q = "SELECT users.id, concat(users.first_name,' ',users.last_name) as name,
+// divisions.name as divisions,
+// districts.name as districts,
+// personal_info.* ,
+// profile_pic.name as img
+// FROM `users`,address,divisions,districts,personal_info,profile_pic
+// WHERE 
+// users.gender = '$gender' and 
+// users.role = '1' AND
+// users.status = '2' AND
+// address.user_id = users.id AND
+// profile_pic.user_id = users.id AND
+// divisions.id = address.p_division AND
+// districts.id = address.p_disrict AND
+// personal_info.user_id = users.id order by users.id DESC";
+
+// $result = $conn->query($q);
 
 
 
-// $db->where("gender", $gender);
-// $db->where("role", "1");
-// $db->where("status", "2");
-// $user = $db->get("users");
 
 
 

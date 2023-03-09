@@ -22,12 +22,15 @@ if (session_status() === PHP_SESSION_NONE) {
                 <li data-aos="fade-down" data-aos-duration="600" class="nav-item">
                     <a class="nav-link" aria-current="page" href="<?= settings()['homepage'] ?>event.php">Event</a>
                 </li>
+                <?php 
+                    if(isset($_SESSION['loggedin'])){
+
+                   
+                ?>
                 <li data-aos="fade-down" data-aos-duration="900" class="nav-item">
-                    <a class="nav-link" aria-current="page" href="<?= settings()['homepage'] ?>person.php?person=brides">Brides</a>
+                    <a class="nav-link" aria-current="page" href="<?= settings()['homepage'] ?>person.php">Preferable Partner</a>
                 </li>
-                <li data-aos="fade-down" data-aos-duration="1200" class="nav-item">
-                    <a class="nav-link" aria-current="page" href="<?= settings()['homepage'] ?>person.php?person=grooms">Grooms</a>
-                </li>
+                <?php } ?>
                 <li data-aos="fade-down" data-aos-duration="1500" class="nav-item">
                     <a class="nav-link" aria-current="page" href="<?= settings()['homepage'] ?>contact.php">Contact</a>
                 </li>

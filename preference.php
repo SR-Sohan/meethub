@@ -11,27 +11,9 @@ use App\db;
 $db = new MysqliDb();
 $id = $_SESSION['userid'];
 $page = "Preference";
-$r = $db->get('districts');
 $db->where("user_id", $id);
-$preference = $db->get("partner_preference");
-if (isset($_POST['add'])) {
-    $data = [
-        'user_id' => $db->escape($_POST['user_id']),
-        'education' => $db->escape($_POST['exam']),
-        'district' => $db->escape($_POST['district']),
-        'height' => $db->escape($_POST['height']),
-        'dislike_habbit' => $db->escape($_POST['habits']),
+$preference = $db->getOne("partner_preference");
 
-    ];
-
-
-
-    if ($db->insert("partner_preference", $data)) {
-        header("location:" . $_SERVER['PHP_SELF']);
-    } else {
-        $message = "Update Failed!!";
-    }
-}
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
 

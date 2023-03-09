@@ -11,6 +11,10 @@ use App\db;
 $conn = db::connect();
 $db = new MysqliDb();
 $page = "Home";
+if(isset($_SESSION['gender'])){
+$gender = $_SESSION['gender'] == 'male' ? "female" : "male";
+};
+
 $db->orderBy ("carousel.id","desc");
 $res = $db->get("carousel");
 
@@ -101,7 +105,7 @@ $result2 = $conn->query($q2);
             </div>
             <div class="person-wrapper">
                 <div class="row py-5 ">
-                    <h2 data-aos="fade-right" class="newperson-title">New Grooms</h2>
+                    <h2 data-aos="fade-right" class="newperson-title">Most Preferable Partner</h2>
                     <div data-aos="fade-left" class="swiper mySwiper py-5">
                         <div class="swiper-wrapper ">
                             <?php
@@ -140,7 +144,7 @@ $result2 = $conn->query($q2);
                         </div>
                     </div>
                 </div>
-                <div class="row py-5 ">
+                <!-- <div class="row py-5 ">
                     <h2 data-aos="fade-right" class="newperson-title">New Brides</h2>
                     <div data-aos="fade-left" class="swiper mySwiper py-5">
                         <div class="swiper-wrapper ">
@@ -179,7 +183,7 @@ $result2 = $conn->query($q2);
                             } ?>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
 

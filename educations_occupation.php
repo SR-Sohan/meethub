@@ -12,7 +12,8 @@ $db = new MysqliDb();
 $id = $_SESSION['userid'];
 $page = "Educations";
 $db->where("user_id", $id);
-$education = $db->get("educations");
+$row = $db->getOne("education_occupation");
+
 
 ?>
 <?php require __DIR__ . '/components/header.php'; ?>
@@ -32,7 +33,31 @@ $education = $db->get("educations");
                         <div class="edit-btn">
                             <a href="<?= settings()['homepage'] ?>edit_edu_occupation.php?user_id=<?= $id ?>"> <i class="fa fa-pen fa-xs edit"></i></a>
                         </div>
-
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Highest Education </td>
+                                    <td>:</td>
+                                    <td><?= $row['education']??''?></td>
+                                </tr>
+                                <tr>
+                                    <td>Institute</td>
+                                    <td>:</td>
+                                    <td><?= $row['institute']??''?></td>
+                                </tr>
+                                <tr>
+                                    <td>Employed</td>
+                                    <td>:</td>
+                                    <td><?= $row['employed']??''?></td>
+                                </tr>
+                                <tr>
+                                    <td>Yearly Income</td>
+                                    <td>:</td>
+                                    <td>৳<?= $row['income']??''?></td>
+                                </tr>
+                              
+                            </tbody>
+                        </table>
 
                     </div>
                 </div>
